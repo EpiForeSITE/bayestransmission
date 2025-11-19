@@ -76,7 +76,6 @@ and configure all parameters, then wraps it in the appropriate R reference class
 based on the model type specified in \code{modelParameters$modname}.
 }
 \examples{
-\dontrun{
 # Create a basic log-normal model
 params <- LogNormalModelParams("LogNormalModel")
 model <- newCppModel(params)
@@ -94,9 +93,16 @@ inColParams <- model$InColParams
 paramValues <- inColParams$values
 
 # Use with a system history for likelihood calculation
-# (requires data and SystemHistory object)
-# ll <- model$logLikelihood(systemHistory)
-}
+sys <- CppSystem$new(
+  as.integer(simulated.data_sorted$facility),
+  as.integer(simulated.data_sorted$unit),
+  simulated.data_sorted$time,
+  as.integer(simulated.data_sorted$patient),
+  as.integer(simulated.data_sorted$type)
+)
+
+hist <- CppSystemHistory$new(sys, model, FALSE)
+ll <- model$logLikelihood(hist)
 
 }
 \seealso{

@@ -46,22 +46,21 @@ EventToCode <- function(x) {
 #'   * `waic1` the WAIC1 estimate
 #'   * `waic2` the WAIC2 estimate
 #'   * and optionally (if outputfinal=TRUE) `FinalModel` the final model state.
+#' @seealso [mcmc_to_dataframe]
 #' @examples
-#' \dontrun{
 #'   # Minimal example: create parameters and run a very short MCMC
 #'   params <- LinearAbxModel(nstates = 2)
 #'   data(simulated.data_sorted, package = "bayestransmission")
 #'   results <- runMCMC(
 #'     data = simulated.data_sorted,
 #'     modelParameters = params,
-#'     nsims = 1,
+#'     nsims = 3,
 #'     nburn = 0,
 #'     outputparam = TRUE,
 #'     outputfinal = FALSE,
 #'     verbose = FALSE
 #'   )
 #'   str(results)
-#' }
 #' @export
 runMCMC <- function(data, modelParameters, nsims, nburn = 100L, outputparam = TRUE, outputfinal = FALSE, verbose = FALSE) {
     .Call(`_bayestransmission_runMCMC`, data, modelParameters, nsims, nburn, outputparam, outputfinal, verbose)

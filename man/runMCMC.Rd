@@ -47,14 +47,13 @@ A list with the following elements:
 Run Bayesian Transmission MCMC
 }
 \examples{
-\dontrun{
   # Minimal example: create parameters and run a very short MCMC
   params <- LinearAbxModel(nstates = 2)
   data(simulated.data_sorted, package = "bayestransmission")
   results <- runMCMC(
     data = simulated.data_sorted,
     modelParameters = params,
-    nsims = 1,
+    nsims = 3,
     nburn = 0,
     outputparam = TRUE,
     outputfinal = FALSE,
@@ -62,4 +61,6 @@ Run Bayesian Transmission MCMC
   )
   str(results)
 }
+\seealso{
+\link{mcmc_to_dataframe}
 }

@@ -12,13 +12,16 @@ getCppModelParams(model)
 \value{
 A named list containing all model parameter values:
 \itemize{
-\item \code{Insitu} - In situ parameter values
-\item \code{SurveillanceTest} - Surveillance test parameter values
-\item \code{ClinicalTest} - Clinical test parameter values
-\item \code{OutCol} - Out-of-unit colonization parameter values
-\item \code{InCol} - In-unit colonization parameter values
-\item \code{Abx} - Antibiotic parameter values (if applicable)
+\item \code{Insitu} - Named numeric vector of in situ parameter values
+\item \code{SurveillanceTest} - Named numeric vector of surveillance test parameter values
+\item \code{ClinicalTest} - Named numeric vector of clinical test parameter values
+\item \code{OutCol} - Named numeric vector of out-of-unit colonization parameter values
+\item \code{InCol} - Named numeric vector of in-unit colonization parameter values
+\item \code{Abx} - Named numeric vector of antibiotic parameter values (if applicable)
 }
+
+If a component's names cannot be determined or lengths mismatch, the vector
+is returned unnamed.
 }
 \description{
 Convenience function to extract all parameter values from a C++ model object
@@ -26,12 +29,9 @@ created with \code{newCppModel()}. This is essentially a wrapper around accessin
 the model's parameter properties.
 }
 \examples{
-\dontrun{
 params <- LinearAbxModel()
 model <- newCppModel(params)
 
 # Extract all parameters
-all_params <- getCppModelParams(model)
-print(all_params$InCol)
-}
+getCppModelParams(model)
 }

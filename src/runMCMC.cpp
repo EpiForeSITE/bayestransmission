@@ -72,6 +72,7 @@ lognormal::LogNormalModel* newModel(
     {
         model = new LogNormalModel(
             nstates,
+            0,  // abxtest - must be 0 for base LogNormalModel (creates TestParamsAbx with abx=false)
             modelParameters["nmetro"],
             modelParameters["forward"],
             modelParameters["cheat"]
@@ -110,22 +111,21 @@ lognormal::LogNormalModel* newModel(
 //'   * `waic1` the WAIC1 estimate
 //'   * `waic2` the WAIC2 estimate
 //'   * and optionally (if outputfinal=TRUE) `FinalModel` the final model state.
+//' @seealso [mcmc_to_dataframe]
 //' @examples
-//' \dontrun{
 //'   # Minimal example: create parameters and run a very short MCMC
 //'   params <- LinearAbxModel(nstates = 2)
 //'   data(simulated.data_sorted, package = "bayestransmission")
 //'   results <- runMCMC(
 //'     data = simulated.data_sorted,
 //'     modelParameters = params,
-//'     nsims = 1,
+//'     nsims = 3,
 //'     nburn = 0,
 //'     outputparam = TRUE,
 //'     outputfinal = FALSE,
 //'     verbose = FALSE
 //'   )
 //'   str(results)
-//' }
 //' @export
 // [[Rcpp::export]]
 SEXP runMCMC(

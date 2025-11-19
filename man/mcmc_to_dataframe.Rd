@@ -33,15 +33,12 @@ missing values gracefully by inserting \code{NA} when a parameter is not present
 This is particularly useful for creating trace plots and posterior distributions.
 }
 \examples{
-\dontrun{
 results <- runMCMC(data = simulated.data,
                    modelParameters = LinearAbxModel(),
-                   nsims = 1000,
-                   nburn = 100,
+                   nsims = 10,
+                   nburn = 0,
                    outputparam = TRUE,
-                   outputfinal = TRUE)
+                   outputfinal = FALSE)
 param_df <- mcmc_to_dataframe(results)
 head(param_df)
-}
-
 }

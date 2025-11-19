@@ -219,9 +219,17 @@ inline void setupLogNormalICPAcquisition(
         Rcpp::List AcquisitionParams
 )
 {
-    for(auto i=0; i < AcquisitionParams.size(); i++)
-    {
-        setParam(icp, 0, i, AcquisitionParams[i]);
+    // BUG FIX (segfault): Base LogNormalICP (e.g. LNMassActionICP) used by LogNormalModel
+    // expects only ONE acquisition parameter. R defaults currently pass a list of
+    // multiple LinearAbx-style acquisition parameters leading to out-of-bounds writes.
+    // Here we only set the first parameter; extra elements are ignored with a warning.
+    if (AcquisitionParams.size() == 0) {
+        Rcpp::stop("AcquisitionParams list is empty for LogNormalModel");
+    }
+    setParam(icp, 0, 0, AcquisitionParams[0]);
+    if (AcquisitionParams.size() > 1) {
+        Rcpp::Rcout << "Warning: Ignoring " << (AcquisitionParams.size() - 1)
+                    << " extra acquisition parameter(s) for LogNormalICP (supports 1)." << std::endl;
     }
 }
 

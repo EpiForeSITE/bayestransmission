@@ -253,7 +253,7 @@ double* LogNormalAbxICP::acquisitionRates(double time, PatientState *p, Location
 }
 
 std::vector<std::string> LogNormalAbxICP::paramNames() const {
-    std::vector<std::string> names;
+    std::vector<std::string> names(14);  // Pre-allocate for 14 parameters
     names[0] = "LNAX.time";
     names[1] = "LNAX.base";
     names[2] = "LNAX.ltot";

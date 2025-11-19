@@ -56,7 +56,6 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' # Create a basic log-normal model
 #' params <- LogNormalModelParams("LogNormalModel")
 #' model <- newCppModel(params)
@@ -74,10 +73,17 @@
 #' paramValues <- inColParams$values
 #'
 #' # Use with a system history for likelihood calculation
-#' # (requires data and SystemHistory object)
-#' # ll <- model$logLikelihood(systemHistory)
-#' }
-#'
+#' sys <- CppSystem$new(
+#'   as.integer(simulated.data_sorted$facility),
+#'   as.integer(simulated.data_sorted$unit),
+#'   simulated.data_sorted$time,
+#'   as.integer(simulated.data_sorted$patient),
+#'   as.integer(simulated.data_sorted$type)
+#' )
+#' 
+#' hist <- CppSystemHistory$new(sys, model, FALSE)
+#' ll <- model$logLikelihood(hist)
+#' 
 #' @seealso
 #' * [LogNormalModelParams()] for creating model parameters
 #' * [LinearAbxModel()] for linear antibiotic model parameters
