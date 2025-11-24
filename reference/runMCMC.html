@@ -97,24 +97,268 @@
 <li><p><code>waic2</code> the WAIC2 estimate</p></li>
 <li><p>and optionally (if outputfinal=TRUE) <code>FinalModel</code> the final model state.</p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p><a href="mcmc_to_dataframe.html">mcmc_to_dataframe</a></p></div>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span>  <span class="co"># Minimal example: create parameters and run a very short MCMC</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span>  <span class="co"># Minimal example: create parameters and run a very short MCMC</span></span></span>
 <span class="r-in"><span>  <span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="LogNormalModelParams.html">LinearAbxModel</a></span><span class="op">(</span>nstates <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">simulated.data_sorted</span>, package <span class="op">=</span> <span class="st">"bayestransmission"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">runMCMC</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    data <span class="op">=</span> <span class="va">simulated.data_sorted</span>,</span></span>
 <span class="r-in"><span>    modelParameters <span class="op">=</span> <span class="va">params</span>,</span></span>
-<span class="r-in"><span>    nsims <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>    nsims <span class="op">=</span> <span class="fl">3</span>,</span></span>
 <span class="r-in"><span>    nburn <span class="op">=</span> <span class="fl">0</span>,</span></span>
 <span class="r-in"><span>    outputparam <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>    outputfinal <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>    verbose <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> List of 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ Parameters     :List of 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ :List of 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ Insitu          : Named num [1:2] 0.99593 0.00407</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr [1:2] "Insit.P(unc)" "Insit.P(col)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ SurveillanceTest: Named num [1:4] 1.00e-10 2.26e-01 1.00e-10 1.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr [1:4] "ATest.P(+|unc-)" "ATest.P(+|col-)" "ATest.P(+|unc+)" "ATest.P(+|col+)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ ClinicalTest    : Named num [1:4] 0.5 0.5 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr [1:4] "RTest.P(+|unc)" "RTest.P(+|col)" "RTest.rateUnc" "RTest.rateCol"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ OutCol          : Named num [1:2] 0.05 0.01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr [1:2] "Out.acq" "Out.clr"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ InCol           : Named num [1:10] 0.000892 1 1 1 1 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr [1:10] "LABX.base" "LABX.time" "LABX.mass.mx" "LABX.freq.mx" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ Abx             : Named num [1:2] 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr [1:2] "Abx.rateUnc" "Abx.rateCol"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ :List of 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ Insitu          : Named num [1:2] 0.99896 0.00104</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr [1:2] "Insit.P(unc)" "Insit.P(col)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ SurveillanceTest: Named num [1:4] 1.00e-10 2.39e-01 1.00e-10 7.39e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr [1:4] "ATest.P(+|unc-)" "ATest.P(+|col-)" "ATest.P(+|unc+)" "ATest.P(+|col+)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ ClinicalTest    : Named num [1:4] 0.5 0.5 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr [1:4] "RTest.P(+|unc)" "RTest.P(+|col)" "RTest.rateUnc" "RTest.rateCol"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ OutCol          : Named num [1:2] 0.00705 0.00723</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr [1:2] "Out.acq" "Out.clr"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ InCol           : Named num [1:10] 0.000907 1 1 1 1 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr [1:10] "LABX.base" "LABX.time" "LABX.mass.mx" "LABX.freq.mx" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ Abx             : Named num [1:2] 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr [1:2] "Abx.rateUnc" "Abx.rateCol"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ :List of 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ Insitu          : Named num [1:2] 0.668 0.332</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr [1:2] "Insit.P(unc)" "Insit.P(col)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ SurveillanceTest: Named num [1:4] 1.00e-10 3.83e-01 1.00e-10 6.71e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr [1:4] "ATest.P(+|unc-)" "ATest.P(+|col-)" "ATest.P(+|unc+)" "ATest.P(+|col+)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ ClinicalTest    : Named num [1:4] 0.5 0.5 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr [1:4] "RTest.P(+|unc)" "RTest.P(+|col)" "RTest.rateUnc" "RTest.rateCol"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ OutCol          : Named num [1:2] 0.00705 0.00723</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr [1:2] "Out.acq" "Out.clr"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ InCol           : Named num [1:10] 0.000909 1 1 1 1 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr [1:10] "LABX.base" "LABX.time" "LABX.mass.mx" "LABX.freq.mx" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ Abx             : Named num [1:2] 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr [1:2] "Abx.rateUnc" "Abx.rateCol"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ LogLikelihood  : num [1:3] -16088 -15270 -14472</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ MCMCParameters :List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ nsims      : num 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ nburn      : num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ outputparam: logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ outputfinal: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ ModelParameters:List of 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ modname         : chr "LinearAbxModel"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ nstates         : int 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ nmetro          : int 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ forward         : logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ cheat           : logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ Insitu          :List of 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ probs : num [1:3] 0.9 0 0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ priors: num [1:3] 0.9 1 0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ doit  : logi [1:3] TRUE FALSE TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ SurveillanceTest:List of 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ colonized  :List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ init  : num 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ update: logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ prior : num 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ weight: num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ uncolonized:List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ init  : num 1e-10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ update: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ prior : num 1e-10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ weight: num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ latent     :List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ init  : num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ update: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ prior : num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ weight: num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ClinicalTest    :List of 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ uncolonized:List of 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ param:List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ init  : num 0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ update: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ prior : num 0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ weight: num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ rate :List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ init  : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ update: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ prior : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ weight: num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ colonized  :List of 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ param:List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ init  : num 0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ update: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ prior : num 0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ weight: num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ rate :List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ init  : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ update: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ prior : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ weight: num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ latent     :List of 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ param:List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ init  : num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ update: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ prior : num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ weight: num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ rate :List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ init  : num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ update: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ prior : num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ weight: num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ OutCol          :List of 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ acquisition:List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ init  : num 0.05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ update: logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ prior : num 0.05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ weight: num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ clearance  :List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ init  : num 0.01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ update: logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ prior : num 0.01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ weight: num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ progression:List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ init  : num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ update: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ prior : num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ weight: num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ InCol           :List of 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ acquisition:List of 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ base     :List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ init  : num 0.001</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ update: logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ prior : num 0.001</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ weight: num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ time     :List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ init  : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ update: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ prior : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ weight: num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ mass     :List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ init  : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ update: logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ prior : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ weight: num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ freq     :List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ init  : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ update: logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ prior : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ weight: num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ col_abx  :List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ init  : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ update: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ prior : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ weight: num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ suss_abx :List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ init  : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ update: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ prior : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ weight: num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ suss_ever:List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ init  : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ update: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ prior : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ weight: num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ progression:List of 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ rate    :List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ init  : num 0.01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ update: logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ prior : num 0.01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ weight: num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ abx     :List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ init  : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ update: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ prior : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ weight: num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ ever_abx:List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ init  : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ update: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ prior : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ weight: num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ clearance  :List of 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ rate    :List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ init  : num 0.01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ update: logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ prior : num 0.01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ weight: num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ abx     :List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ init  : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ update: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ prior : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ weight: num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ ever_abx:List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ init  : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ update: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ prior : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ weight: num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ Abx             :List of 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ onoff: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ delay: num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ life : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ AbxRate         :List of 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ uncolonized:List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ init  : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ update: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ prior : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ weight: num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ colonized  :List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ init  : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ update: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ prior : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ weight: num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ latent     :List of 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ init  : num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ update: logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ prior : num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ weight: num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "class")= chr "Param"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ waic1          : num 0.422</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ waic2          : num 0.486</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

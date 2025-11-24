@@ -135,10 +135,10 @@ R reference class based on the model type specified in
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 # Create a basic log-normal model
 params <- LogNormalModelParams("LogNormalModel")
 model <- newCppModel(params)
+#> Warning: Ignoring 6 extra acquisition parameter(s) for LogNormalICP (supports 1).
 
 # Access model properties
 inColParams <- model$InColParams
@@ -147,13 +147,35 @@ insituParams <- model$InsituParams
 # Create a linear antibiotic model
 params <- LinearAbxModel()
 model <- newCppModel(params, verbose = TRUE)
+#> Creating C++ model of type: LinearAbxModel
+#> Creating C++ model object...
+#> 
+#> (In LinearAbxModel specialization)
+#>   * Setting up Abx...Done
+#>   * Setting up Insitu...Done
+#>   * Setting up Surveillance Test...Done
+#>   * Setting up Clinical Test...Done
+#>   * Setting up Out of Unit...Done
+#>   * Setting up In Unit...Done
+#>   * Setting up Abx Rates...Done
+#> Model created successfully
 
 # Get parameter values
 inColParams <- model$InColParams
 paramValues <- inColParams$values
 
 # Use with a system history for likelihood calculation
-# (requires data and SystemHistory object)
-# ll <- model$logLikelihood(systemHistory)
-} # }
+sys <- CppSystem$new(
+  as.integer(simulated.data_sorted$facility),
+  as.integer(simulated.data_sorted$unit),
+  simulated.data_sorted$time,
+  as.integer(simulated.data_sorted$patient),
+  as.integer(simulated.data_sorted$type)
+)
+#> Error: object 'CppSystem' not found
+
+hist <- CppSystemHistory$new(sys, model, FALSE)
+#> Error: object 'CppSystemHistory' not found
+ll <- model$logLikelihood(hist)
+#> Error in as.environment(function (x, ...) UseMethod("hist")): invalid object for 'as.environment'
 ```
