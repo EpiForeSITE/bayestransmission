@@ -29,7 +29,7 @@ EventToCode <- function(x) {
 #' Run Bayesian Transmission MCMC
 #'
 #' @param data Data frame with columns, in order: facility, unit, time, patient, and event type.
-#' @param modelParameters List of model parameters, see <LogNormalModelParams>.
+#' @param modelParameters List of model parameters, see [LogNormalModelParams()].
 #' @param nsims Number of MCMC samples to collect after burn-in.
 #' @param nburn Number of burn-in iterations.
 #' @param outputparam Whether to output parameter values at each iteration.
