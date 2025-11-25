@@ -17,7 +17,7 @@ runMCMC(
 \arguments{
 \item{data}{Data frame with columns, in order: facility, unit, time, patient, and event type.}
 
-\item{modelParameters}{List of model parameters, see \if{html}{\out{<LogNormalModelParams>}}.}
+\item{modelParameters}{List of model parameters, see \code{\link[=LogNormalModelParams]{LogNormalModelParams()}}.}
 
 \item{nsims}{Number of MCMC samples to collect after burn-in.}
 
