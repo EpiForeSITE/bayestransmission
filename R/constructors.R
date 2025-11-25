@@ -360,20 +360,20 @@ LogNormalAcquisitionParams <- function(
 #'      \right)
 #'  \right]
 #' }{
-#'  P(Acq(t)) = exp(β_time*(t-t0)) * {
-#'    exp(β_0) * [
-#'      (β_freq/P(t)
-#'    + (1-exp(β_freq))) * exp(β_mass) * ((N_c(t) - N_ca(t)) + exp(β_col_abx)*N_ca(t)) + 1 - exp(β_mass)
+#'  P(Acq(t)) = exp(beta_time*(t-t0)) * {
+#'    exp(beta_0) * [
+#'      (beta_freq/P(t)
+#'    + (1-exp(beta_freq))) * exp(beta_mass) * ((N_c(t) - N_ca(t)) + exp(beta_col_abx)*N_ca(t)) + 1 - exp(beta_mass)
 #'    ]
 #'  }
 #'  * [
-#'    N_S(t) - N_E(t) + exp(β_suss_ever)*((E_i(t)-A_i(t)) + A_i(t)*exp(β_suss_abx))
+#'    N_S(t) - N_E(t) + exp(beta_suss_ever)*((E_i(t)-A_i(t)) + A_i(t)*exp(beta_suss_abx))
 #'  ]
 #' }
-#' where P(Acq(t)) is the acquisition probability at time t, with effects from time (β_time), 
-#' mass action (β_mass), frequency dependence (β_freq), 
-#' colonized individuals on antibiotics (β_col_abx), 
-#' and susceptible individuals currently (β_suss_abx) or ever (β_suss_ever) on antibiotics.
+#' where P(Acq(t)) is the acquisition probability at time t, with effects from time (beta_time), 
+#' mass action (beta_mass), frequency dependence (beta_freq), 
+#' colonized individuals on antibiotics (beta_col_abx), 
+#' and susceptible individuals currently (beta_suss_abx) or ever (beta_suss_ever) on antibiotics.
 #'
 #' @param base The base rate of acquisition.
 #' @param time The time effect on acquisition.
