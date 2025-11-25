@@ -295,7 +295,43 @@ AbxRateParams <- function(
   )
 }
 
+#' Log-Normal Acquisition Parameters
+#'
+#' Acquisition parameters for the log-normal model (LogNormalAbxICP).
+#' This model has 8 acquisition parameters accessed by index in C++.
+#' Note: When accessed via setupLogNormalICPAcquisition, parameters are set by index,
+#' so this returns an unnamed list where position matters.
+#'
+#' @param time Time parameter (index 0)
+#' @param constant Constant parameter (index 1)
+#' @param log_tot_inpat Log total in-patients parameter (index 2)
+#' @param log_col Log number colonized parameter (index 3)
+#' @param col Number colonized parameter (index 4)
+#' @param abx_col Number abx colonized parameter (index 5)
+#' @param onabx Susceptible patient on Abx effect (index 6)
+#' @param everabx Susceptible patient ever on Abx effect (index 7)
+#'
+#' @returns An unnamed list of 8 parameters in the correct order for LogNormalAbxICP.
+#' @export
+#'
+#' @examples
+#' LogNormalAcquisitionParams()
+LogNormalAcquisitionParams <- function(
+    time = Param(0, 0),
+    constant = Param(0.001, 1),
+    log_tot_inpat = Param(-1, 0),
+    log_col = Param(1, 0),
+    col = Param(0, 0),
+    abx_col = Param(0, 0),
+    onabx = Param(0, 0),
+    everabx = Param(0, 0)) {
+  # Return unnamed list - accessed by index in C++
+  list(time, constant, log_tot_inpat, log_col, col, abx_col, onabx, everabx)
+}
+
 #' Linear Antibiotic Acquisition Parameters
+#'
+#' Acquisition parameters for LinearAbxModel and LinearAbxModel2.
 #'
 #' The model for this acquisition model is given by
 #'
@@ -498,7 +534,7 @@ LogNormalModelParams <-
            SurveillanceTest = SurveillanceTestParams(),
            ClinicalTest = ClinicalTestParams(),
            OutOfUnitInfection = OutOfUnitInfectionParams(),
-           InUnit = InUnitParams(),  # Fixed: was InUnitParameters()
+           InUnit = NULL,  # Default depends on modname
            Abx = AbxParams(),
            AbxRate = AbxRateParams()) {
     assertthat::assert_that(
@@ -512,6 +548,17 @@ LogNormalModelParams <-
     # Create default Insitu params based on nstates if not provided
     if (is.null(Insitu)) {
       Insitu <- InsituParams(nstates = nstates)
+    }
+    
+    # Create default InUnit params based on model type if not provided
+    if (is.null(InUnit)) {
+      if (modname == "LogNormalModel" || modname == "MixedModel") {
+        # LogNormalModel and MixedModel use LogNormalAbxICP with 8 acquisition params
+        InUnit <- InUnitParams(acquisition = LogNormalAcquisitionParams())
+      } else {
+        # LinearAbxModel, LinearAbxModel2, etc. use LinearAbxICP with 7 params
+        InUnit <- InUnitParams(acquisition = LinearAbxAcquisitionParams())
+      }
     }
 
     list(
