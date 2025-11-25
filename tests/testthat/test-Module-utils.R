@@ -125,7 +125,13 @@ test_that("RRandom rpoisson method", {
   .GlobalEnv$.Random.seed <- seed
   d <- rpois(1, 5)
 
-  expect_false(a == b)
-  expect_true(a == c)
-  expect_true(a == d)
+  # Verify seed restoration works
+  expect_identical(a, c, info = "Restoring seed should give identical result")
+  expect_identical(a, d, info = "RRandom should match R's rpois exactly")
+  
+  # Verify seed advances (draw 10 values and check they're not all identical)
+  .GlobalEnv$.Random.seed <- seed
+  values <- replicate(10, rr$rpoisson(5))
+  expect_true(length(unique(values)) > 1, 
+              info = "Seed should advance: 10 draws should not all be identical")
 })
