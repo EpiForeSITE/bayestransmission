@@ -46,35 +46,16 @@ vector is returned unnamed.
 ## Examples
 
 ``` r
+if (FALSE) { # \dontrun{
+# Create a linear antibiotic model
 params <- LinearAbxModel()
 model <- newCppModel(params)
 
 # Extract all parameters
-getCppModelParams(model)
-#> $Insitu
-#> Insit.P(unc) Insit.P(col) 
-#>          0.9          0.1 
-#> 
-#> $SurveillanceTest
-#> ATest.P(+|unc-) ATest.P(+|col-) ATest.P(+|unc+) ATest.P(+|col+) 
-#>           1e-10           8e-01           1e-10           8e-01 
-#> 
-#> $ClinicalTest
-#> RTest.P(+|unc) RTest.P(+|col)  RTest.rateUnc  RTest.rateCol 
-#>            0.5            0.5            1.0            1.0 
-#> 
-#> $OutCol
-#> Out.acq Out.clr 
-#>    0.05    0.01 
-#> 
-#> $InCol
-#>    LABX.base    LABX.time LABX.mass.mx LABX.freq.mx  LABX.colabx  LABX.susabx 
-#>        0.001        1.000        1.000        1.000        1.000        1.000 
-#> LABX.susever     LABX.clr  LABX.clrAbx LABX.clrEver 
-#>        1.000        0.010        1.000        1.000 
-#> 
-#> $Abx
-#> Abx.rateUnc Abx.rateCol 
-#>           1           1 
-#> 
+all_params <- getCppModelParams(model)
+
+# View specific parameter groups
+all_params$InCol  # In-unit colonization parameters
+all_params$Insitu # In situ parameters
+} # }
 ```

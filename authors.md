@@ -18,6 +18,9 @@
 
 ## Citation
 
+Source:
+[`DESCRIPTION`](https://github.com/EpiForeSITE/bayestransmission/blob/main/DESCRIPTION)
+
 Redd A, Thomas A (2025). *bayestransmission: Bayesian Transmission
 Models*. R package version 0.0.0.9000,
 <https://epiforesite.github.io/bayestransmission/>.

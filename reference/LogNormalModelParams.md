@@ -15,7 +15,7 @@ LogNormalModelParams(
   SurveillanceTest = SurveillanceTestParams(),
   ClinicalTest = ClinicalTestParams(),
   OutOfUnitInfection = OutOfUnitInfectionParams(),
-  InUnit = InUnitParams(),
+  InUnit = NULL,
   Abx = AbxParams(),
   AbxRate = AbxRateParams()
 )
@@ -323,7 +323,23 @@ LogNormalModelParams("LogNormalModel")
 #> 
 #> $InCol
 #> $InCol$acquisition
-#> $InCol$acquisition$base
+#> $InCol$acquisition[[1]]
+#> $init
+#> [1] 0
+#> 
+#> $update
+#> [1] FALSE
+#> 
+#> $prior
+#> [1] 0
+#> 
+#> $weight
+#> [1] 0
+#> 
+#> attr(,"class")
+#> [1] "Param"
+#> 
+#> $InCol$acquisition[[2]]
 #> $init
 #> [1] 0.001
 #> 
@@ -339,7 +355,23 @@ LogNormalModelParams("LogNormalModel")
 #> attr(,"class")
 #> [1] "Param"
 #> 
-#> $InCol$acquisition$time
+#> $InCol$acquisition[[3]]
+#> $init
+#> [1] -1
+#> 
+#> $update
+#> [1] FALSE
+#> 
+#> $prior
+#> [1] -1
+#> 
+#> $weight
+#> [1] 0
+#> 
+#> attr(,"class")
+#> [1] "Param"
+#> 
+#> $InCol$acquisition[[4]]
 #> $init
 #> [1] 1
 #> 
@@ -355,47 +387,15 @@ LogNormalModelParams("LogNormalModel")
 #> attr(,"class")
 #> [1] "Param"
 #> 
-#> $InCol$acquisition$mass
+#> $InCol$acquisition[[5]]
 #> $init
-#> [1] 1
-#> 
-#> $update
-#> [1] TRUE
-#> 
-#> $prior
-#> [1] 1
-#> 
-#> $weight
-#> [1] 1
-#> 
-#> attr(,"class")
-#> [1] "Param"
-#> 
-#> $InCol$acquisition$freq
-#> $init
-#> [1] 1
-#> 
-#> $update
-#> [1] TRUE
-#> 
-#> $prior
-#> [1] 1
-#> 
-#> $weight
-#> [1] 1
-#> 
-#> attr(,"class")
-#> [1] "Param"
-#> 
-#> $InCol$acquisition$col_abx
-#> $init
-#> [1] 1
+#> [1] 0
 #> 
 #> $update
 #> [1] FALSE
 #> 
 #> $prior
-#> [1] 1
+#> [1] 0
 #> 
 #> $weight
 #> [1] 0
@@ -403,15 +403,15 @@ LogNormalModelParams("LogNormalModel")
 #> attr(,"class")
 #> [1] "Param"
 #> 
-#> $InCol$acquisition$suss_abx
+#> $InCol$acquisition[[6]]
 #> $init
-#> [1] 1
+#> [1] 0
 #> 
 #> $update
 #> [1] FALSE
 #> 
 #> $prior
-#> [1] 1
+#> [1] 0
 #> 
 #> $weight
 #> [1] 0
@@ -419,15 +419,31 @@ LogNormalModelParams("LogNormalModel")
 #> attr(,"class")
 #> [1] "Param"
 #> 
-#> $InCol$acquisition$suss_ever
+#> $InCol$acquisition[[7]]
 #> $init
-#> [1] 1
+#> [1] 0
 #> 
 #> $update
 #> [1] FALSE
 #> 
 #> $prior
-#> [1] 1
+#> [1] 0
+#> 
+#> $weight
+#> [1] 0
+#> 
+#> attr(,"class")
+#> [1] "Param"
+#> 
+#> $InCol$acquisition[[8]]
+#> $init
+#> [1] 0
+#> 
+#> $update
+#> [1] FALSE
+#> 
+#> $prior
+#> [1] 0
 #> 
 #> $weight
 #> [1] 0

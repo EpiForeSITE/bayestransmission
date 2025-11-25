@@ -19,6 +19,8 @@
   : InSitu Parameters
 - [`LinearAbxAcquisitionParams()`](https://epiforesite.github.io/bayestransmission/reference/LinearAbxAcquisitionParams.md)
   : Linear Antibiotic Acquisition Parameters
+- [`LogNormalAcquisitionParams()`](https://epiforesite.github.io/bayestransmission/reference/LogNormalAcquisitionParams.md)
+  : Log-Normal Acquisition Parameters
 - [`LogNormalModelParams()`](https://epiforesite.github.io/bayestransmission/reference/LogNormalModelParams.md)
   [`LinearAbxModel()`](https://epiforesite.github.io/bayestransmission/reference/LogNormalModelParams.md)
   : Model Parameters for a Log Normal Model

@@ -42,6 +42,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/EpiForeSITE/bayestransmission/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -58,7 +59,7 @@
       <h1>Bayesian Transmission Modeling</h1>
             
       
-
+      <small class="dont-index">Source: <a href="https://github.com/EpiForeSITE/bayestransmission/blob/main/vignettes/bayesian-transmission.Rmd" class="external-link"><code>vignettes/bayesian-transmission.Rmd</code></a></small>
       <div class="d-none name"><code>bayesian-transmission.Rmd</code></div>
     </div>
 
@@ -524,15 +525,15 @@ FALSE)</li>
 <span>  <span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/runMCMC.html">runMCMC</a></span><span class="op">(</span></span>
 <span>    data <span class="op">=</span> <span class="va">simulated.data_sorted</span>,</span>
 <span>    modelParameters <span class="op">=</span> <span class="va">params</span>,</span>
-<span>    nsims <span class="op">=</span> <span class="fl">1000</span>,</span>
-<span>    nburn <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>    nsims <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>    nburn <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>    outputparam <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    outputfinal <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt; 206.118 133.516 170.105</span></span></code></pre></div>
+<span><span class="co">#&gt;  17.124  15.873  16.505</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="analyzing-mcmc-results">Analyzing MCMC Results<a class="anchor" aria-label="anchor" href="#analyzing-mcmc-results"></a>
@@ -551,47 +552,47 @@ nested list structure into a tidy data frame format.</p>
 <span><span class="co"># Display first few rows</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">param_df</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   iteration insitu_uncolonized insitu_colonized surv_test_uncol_neg</span></span>
-<span><span class="co">#&gt; 1         1         0.65408410      0.345915901               1e-10</span></span>
-<span><span class="co">#&gt; 2         2         0.41940536      0.580594642               1e-10</span></span>
-<span><span class="co">#&gt; 3         3         0.00480183      0.995198170               1e-10</span></span>
-<span><span class="co">#&gt; 4         4         0.97985172      0.020148280               1e-10</span></span>
-<span><span class="co">#&gt; 5         5         0.99855862      0.001441382               1e-10</span></span>
-<span><span class="co">#&gt; 6         6         0.39104620      0.608953797               1e-10</span></span>
+<span><span class="co">#&gt; 1         1          0.4649756       0.53502440               1e-10</span></span>
+<span><span class="co">#&gt; 2         2          0.8145916       0.18540844               1e-10</span></span>
+<span><span class="co">#&gt; 3         3          0.1541333       0.84586666               1e-10</span></span>
+<span><span class="co">#&gt; 4         4          0.9707602       0.02923979               1e-10</span></span>
+<span><span class="co">#&gt; 5         5          0.8663606       0.13363938               1e-10</span></span>
+<span><span class="co">#&gt; 6         6          0.4665449       0.53345514               1e-10</span></span>
 <span><span class="co">#&gt;   surv_test_col_neg surv_test_uncol_pos surv_test_col_pos clin_test_uncol</span></span>
-<span><span class="co">#&gt; 1         0.8447528               1e-10         0.9998983             0.5</span></span>
-<span><span class="co">#&gt; 2         0.8029492               1e-10         0.2790169             0.5</span></span>
-<span><span class="co">#&gt; 3         0.8518281               1e-10         1.0000000             0.5</span></span>
-<span><span class="co">#&gt; 4         0.8484905               1e-10         0.9995797             0.5</span></span>
-<span><span class="co">#&gt; 5         0.8526668               1e-10         0.4436542             0.5</span></span>
-<span><span class="co">#&gt; 6         0.7994312               1e-10         0.5293115             0.5</span></span>
+<span><span class="co">#&gt; 1         0.8520047               1e-10         0.7868844             0.5</span></span>
+<span><span class="co">#&gt; 2         0.7822836               1e-10         0.9999999             0.5</span></span>
+<span><span class="co">#&gt; 3         0.8599913               1e-10         0.6272905             0.5</span></span>
+<span><span class="co">#&gt; 4         0.8281964               1e-10         0.9998167             0.5</span></span>
+<span><span class="co">#&gt; 5         0.7709993               1e-10         0.4185874             0.5</span></span>
+<span><span class="co">#&gt; 6         0.8377648               1e-10         0.9998530             0.5</span></span>
 <span><span class="co">#&gt;   clin_test_col clin_rate_uncol clin_rate_col outunit_acquisition</span></span>
-<span><span class="co">#&gt; 1           0.5               1             1          0.00103972</span></span>
-<span><span class="co">#&gt; 2           0.5               1             1          0.00103972</span></span>
-<span><span class="co">#&gt; 3           0.5               1             1          0.00103972</span></span>
-<span><span class="co">#&gt; 4           0.5               1             1          0.00103972</span></span>
-<span><span class="co">#&gt; 5           0.5               1             1          0.00103972</span></span>
-<span><span class="co">#&gt; 6           0.5               1             1          0.00103972</span></span>
+<span><span class="co">#&gt; 1           0.5               1             1         0.001181636</span></span>
+<span><span class="co">#&gt; 2           0.5               1             1         0.001181636</span></span>
+<span><span class="co">#&gt; 3           0.5               1             1         0.001181636</span></span>
+<span><span class="co">#&gt; 4           0.5               1             1         0.001181636</span></span>
+<span><span class="co">#&gt; 5           0.5               1             1         0.001181636</span></span>
+<span><span class="co">#&gt; 6           0.5               1             1         0.001181636</span></span>
 <span><span class="co">#&gt;   outunit_clearance  inunit_base inunit_time inunit_mass inunit_freq</span></span>
-<span><span class="co">#&gt; 1              0.01 0.0003624024           1           1           1</span></span>
-<span><span class="co">#&gt; 2              0.01 0.0004016161           1           1           1</span></span>
-<span><span class="co">#&gt; 3              0.01 0.0004127463           1           1           1</span></span>
-<span><span class="co">#&gt; 4              0.01 0.0004347049           1           1           1</span></span>
-<span><span class="co">#&gt; 5              0.01 0.0003035432           1           1           1</span></span>
-<span><span class="co">#&gt; 6              0.01 0.0003274638           1           1           1</span></span>
+<span><span class="co">#&gt; 1              0.01 0.0008107566           1           1           1</span></span>
+<span><span class="co">#&gt; 2              0.01 0.0006954064           1           1           1</span></span>
+<span><span class="co">#&gt; 3              0.01 0.0006984290           1           1           1</span></span>
+<span><span class="co">#&gt; 4              0.01 0.0007232861           1           1           1</span></span>
+<span><span class="co">#&gt; 5              0.01 0.0008540253           1           1           1</span></span>
+<span><span class="co">#&gt; 6              0.01 0.0008682528           1           1           1</span></span>
 <span><span class="co">#&gt;   inunit_colabx inunit_susabx inunit_susever  inunit_clr inunit_clrAbx</span></span>
-<span><span class="co">#&gt; 1             1             1              1 0.002108148             1</span></span>
-<span><span class="co">#&gt; 2             1             1              1 0.002154422             1</span></span>
-<span><span class="co">#&gt; 3             1             1              1 0.002246149             1</span></span>
-<span><span class="co">#&gt; 4             1             1              1 0.002240994             1</span></span>
-<span><span class="co">#&gt; 5             1             1              1 0.002207258             1</span></span>
-<span><span class="co">#&gt; 6             1             1              1 0.002068119             1</span></span>
+<span><span class="co">#&gt; 1             1             1              1 0.008567051             1</span></span>
+<span><span class="co">#&gt; 2             1             1              1 0.007480784             1</span></span>
+<span><span class="co">#&gt; 3             1             1              1 0.006921057             1</span></span>
+<span><span class="co">#&gt; 4             1             1              1 0.006731989             1</span></span>
+<span><span class="co">#&gt; 5             1             1              1 0.005782676             1</span></span>
+<span><span class="co">#&gt; 6             1             1              1 0.005212212             1</span></span>
 <span><span class="co">#&gt;   inunit_clrEver abxrate_uncolonized abxrate_colonized loglikelihood</span></span>
-<span><span class="co">#&gt; 1              1                   1                 1     -12971.40</span></span>
-<span><span class="co">#&gt; 2              1                   1                 1     -12975.10</span></span>
-<span><span class="co">#&gt; 3              1                   1                 1     -12994.34</span></span>
-<span><span class="co">#&gt; 4              1                   1                 1     -13008.59</span></span>
-<span><span class="co">#&gt; 5              1                   1                 1     -12992.41</span></span>
-<span><span class="co">#&gt; 6              1                   1                 1     -13019.92</span></span></code></pre></div>
+<span><span class="co">#&gt; 1              1                   1                 1     -13020.82</span></span>
+<span><span class="co">#&gt; 2              1                   1                 1     -13024.24</span></span>
+<span><span class="co">#&gt; 3              1                   1                 1     -13033.93</span></span>
+<span><span class="co">#&gt; 4              1                   1                 1     -13007.50</span></span>
+<span><span class="co">#&gt; 5              1                   1                 1     -13025.07</span></span>
+<span><span class="co">#&gt; 6              1                   1                 1     -13054.66</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="trace-plots">Trace Plots<a class="anchor" aria-label="anchor" href="#trace-plots"></a>
@@ -673,14 +674,14 @@ parameter after the MCMC sampling.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">summary_stats</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 6</span></span></span>
-<span><span class="co">#&gt;   parameter                    mean        median         sd     q025       q975</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> abxrate_colonized        1             1         0          1   <span style="color: #949494;">e</span>+0   1    <span style="color: #949494;">e</span>+0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> insitu_colonized         0.502         0.502     0.293      2.48<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span>   9.74 <span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> inunit_base              0.000<span style="text-decoration: underline;">428</span>      0.000<span style="text-decoration: underline;">100</span>  0.000<span style="text-decoration: underline;">704</span>   2.42<span style="color: #949494;">e</span><span style="color: #BB0000;">-6</span>   2.66 <span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> loglikelihood       -<span style="color: #BB0000; text-decoration: underline;">13</span><span style="color: #BB0000;">008.</span>       -<span style="color: #BB0000; text-decoration: underline;">13</span><span style="color: #BB0000;">008.</span>       24.1       -<span style="color: #BB0000;">1.31</span><span style="color: #949494;">e</span>+4  -<span style="color: #BB0000;">1.30</span> <span style="color: #949494;">e</span>+4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> outunit_acquisition      0.001<span style="text-decoration: underline;">09</span>       0.001<span style="text-decoration: underline;">09</span>   0.000<span style="text-decoration: underline;">081</span>7  9.57<span style="color: #949494;">e</span><span style="color: #BB0000;">-4</span>   1.25 <span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> surv_test_col_pos        0.803         0.952     0.276      6.47<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span>   1.000<span style="color: #949494;">e</span>+0</span></span></code></pre></div>
+<span><span class="co">#&gt;   parameter                    mean        median         sd      q025      q975</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> abxrate_colonized        1             1         0           1   <span style="color: #949494;">e</span>+0  1    <span style="color: #949494;">e</span>+0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> insitu_colonized         0.466         0.494     0.285       7.16<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>  9.32 <span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> inunit_base              0.000<span style="text-decoration: underline;">480</span>      0.000<span style="text-decoration: underline;">430</span>  0.000<span style="text-decoration: underline;">167</span>    2.84<span style="color: #949494;">e</span><span style="color: #BB0000;">-4</span>  8.60 <span style="color: #949494;">e</span><span style="color: #BB0000;">-4</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> loglikelihood       -<span style="color: #BB0000; text-decoration: underline;">13</span><span style="color: #BB0000;">014.</span>       -<span style="color: #BB0000; text-decoration: underline;">13</span><span style="color: #BB0000;">015.</span>       25.5        -<span style="color: #BB0000;">1.31</span><span style="color: #949494;">e</span>+4 -<span style="color: #BB0000;">1.30</span> <span style="color: #949494;">e</span>+4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> outunit_acquisition      0.001<span style="text-decoration: underline;">09</span>       0.001<span style="text-decoration: underline;">10</span>   0.000<span style="text-decoration: underline;">095</span>1   9.22<span style="color: #949494;">e</span><span style="color: #BB0000;">-4</span>  1.27 <span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> surv_test_col_pos        0.766         0.966     0.304       7.37<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span>  1.000<span style="color: #949494;">e</span>+0</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
