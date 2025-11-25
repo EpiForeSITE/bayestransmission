@@ -56,21 +56,21 @@
 #' @export
 #'
 #' @examples
-#' # Create a basic log-normal model
-#' params <- LogNormalModelParams("LogNormalModel")
+#' \dontrun{
+#' # Create a linear antibiotic model (recommended - stable constructors)
+#' params <- LinearAbxModel()
 #' model <- newCppModel(params)
 #'
 #' # Access model properties
 #' inColParams <- model$InColParams
 #' insituParams <- model$InsituParams
 #'
-#' # Create a linear antibiotic model
-#' params <- LinearAbxModel()
-#' model <- newCppModel(params, verbose = TRUE)
-#'
 #' # Get parameter values
-#' inColParams <- model$InColParams
 #' paramValues <- inColParams$values
+#' 
+#' # Create a log-normal model
+#' params <- LogNormalModelParams("LogNormalModel")
+#' model <- newCppModel(params, verbose = TRUE)
 #'
 #' # Use with a system history for likelihood calculation
 #' sys <- CppSystem$new(
@@ -83,6 +83,7 @@
 #' 
 #' hist <- CppSystemHistory$new(sys, model, FALSE)
 #' ll <- model$logLikelihood(hist)
+#' }
 #' 
 #' @seealso
 #' * [LogNormalModelParams()] for creating model parameters
@@ -152,11 +153,18 @@ newCppModel <- function(modelParameters, verbose = FALSE) {
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' # Create a linear antibiotic model
 #' params <- LinearAbxModel()
 #' model <- newCppModel(params)
 #' 
 #' # Extract all parameters
-#' getCppModelParams(model)
+#' all_params <- getCppModelParams(model)
+#' 
+#' # View specific parameter groups
+#' all_params$InCol  # In-unit colonization parameters
+#' all_params$Insitu # In situ parameters
+#' }
 getCppModelParams <- function(model) {
   if (!inherits(model, "C++Object")) {
     stop("model must be a C++ model object created with newCppModel()")
