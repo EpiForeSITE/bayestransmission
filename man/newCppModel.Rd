@@ -76,21 +76,21 @@ and configure all parameters, then wraps it in the appropriate R reference class
 based on the model type specified in \code{modelParameters$modname}.
 }
 \examples{
-# Create a basic log-normal model
-params <- LogNormalModelParams("LogNormalModel")
+\dontrun{
+# Create a linear antibiotic model (recommended - stable constructors)
+params <- LinearAbxModel()
 model <- newCppModel(params)
 
 # Access model properties
 inColParams <- model$InColParams
 insituParams <- model$InsituParams
 
-# Create a linear antibiotic model
-params <- LinearAbxModel()
-model <- newCppModel(params, verbose = TRUE)
-
 # Get parameter values
-inColParams <- model$InColParams
 paramValues <- inColParams$values
+
+# Create a log-normal model
+params <- LogNormalModelParams("LogNormalModel")
+model <- newCppModel(params, verbose = TRUE)
 
 # Use with a system history for likelihood calculation
 sys <- CppSystem$new(
@@ -103,6 +103,7 @@ sys <- CppSystem$new(
 
 hist <- CppSystemHistory$new(sys, model, FALSE)
 ll <- model$logLikelihood(hist)
+}
 
 }
 \seealso{

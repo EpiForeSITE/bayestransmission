@@ -33,9 +33,11 @@ LinearAbxAcquisitionParams(
 A list of parameters for acquisition.
 }
 \description{
-The model for this acquisition model is given by
+Acquisition parameters for LinearAbxModel and LinearAbxModel2.
 }
 \details{
+The model for this acquisition model is given by
+
 \deqn{
 P(\mathrm{Acq(t)}) =
     \left[e^{\beta_\mathrm{time}(t-t_0)}\right]\\

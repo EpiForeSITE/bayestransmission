@@ -15,7 +15,7 @@ LogNormalModelParams(
   SurveillanceTest = SurveillanceTestParams(),
   ClinicalTest = ClinicalTestParams(),
   OutOfUnitInfection = OutOfUnitInfectionParams(),
-  InUnit = InUnitParams(),
+  InUnit = NULL,
   Abx = AbxParams(),
   AbxRate = AbxRateParams()
 )

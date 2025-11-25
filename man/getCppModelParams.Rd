@@ -29,9 +29,16 @@ created with \code{newCppModel()}. This is essentially a wrapper around accessin
 the model's parameter properties.
 }
 \examples{
+\dontrun{
+# Create a linear antibiotic model
 params <- LinearAbxModel()
 model <- newCppModel(params)
 
 # Extract all parameters
-getCppModelParams(model)
+all_params <- getCppModelParams(model)
+
+# View specific parameter groups
+all_params$InCol  # In-unit colonization parameters
+all_params$Insitu # In situ parameters
+}
 }

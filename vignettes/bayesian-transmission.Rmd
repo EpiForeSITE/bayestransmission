@@ -424,8 +424,8 @@ system.time(
   results <- runMCMC(
     data = simulated.data_sorted,
     modelParameters = params,
-    nsims = 1000,
-    nburn = 100,
+    nsims = 100,
+    nburn = 10,
     outputparam = TRUE,
     outputfinal = TRUE,
     verbose = FALSE

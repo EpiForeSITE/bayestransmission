@@ -40,6 +40,6 @@ Suggests:
     rmarkdown,
     pillar
 RcppModules: Infect
-URL: https://epiforesite.github.io/bayestransmission/, https://github.com/EpiForeSITE/bayesian-transmission
+URL: https://epiforesite.github.io/bayestransmission/, https://github.com/EpiForeSITE/bayestransmission
 VignetteBuilder: knitr
-BugReports: https://github.com/EpiForeSITE/bayesian-transmission/issues
+BugReports: https://github.com/EpiForeSITE/bayestransmission/issues
