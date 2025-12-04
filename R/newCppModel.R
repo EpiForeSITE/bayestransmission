@@ -56,7 +56,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Create a linear antibiotic model (recommended - stable constructors)
 #' params <- LinearAbxModel()
 #' model <- newCppModel(params)
@@ -153,7 +153,7 @@ newCppModel <- function(modelParameters, verbose = FALSE) {
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Create a linear antibiotic model
 #' params <- LinearAbxModel()
 #' model <- newCppModel(params)

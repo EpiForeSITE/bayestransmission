@@ -29,7 +29,7 @@ created with \code{newCppModel()}. This is essentially a wrapper around accessin
 the model's parameter properties.
 }
 \examples{
-\dontrun{
+\donttest{
 # Create a linear antibiotic model
 params <- LinearAbxModel()
 model <- newCppModel(params)

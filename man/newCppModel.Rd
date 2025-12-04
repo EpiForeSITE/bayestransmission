@@ -76,7 +76,7 @@ and configure all parameters, then wraps it in the appropriate R reference class
 based on the model type specified in \code{modelParameters$modname}.
 }
 \examples{
-\dontrun{
+\donttest{
 # Create a linear antibiotic model (recommended - stable constructors)
 params <- LinearAbxModel()
 model <- newCppModel(params)
