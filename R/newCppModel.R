@@ -68,21 +68,12 @@
 #' # Get parameter values
 #' paramValues <- inColParams$values
 #' 
+#' # Get parameter names (if available)
+#' paramNames <- inColParams$names
+#' 
 #' # Create a log-normal model
 #' params <- LogNormalModelParams("LogNormalModel")
 #' model <- newCppModel(params, verbose = TRUE)
-#'
-#' # Use with a system history for likelihood calculation
-#' sys <- CppSystem$new(
-#'   as.integer(simulated.data_sorted$facility),
-#'   as.integer(simulated.data_sorted$unit),
-#'   simulated.data_sorted$time,
-#'   as.integer(simulated.data_sorted$patient),
-#'   as.integer(simulated.data_sorted$type)
-#' )
-#' 
-#' hist <- CppSystemHistory$new(sys, model, FALSE)
-#' ll <- model$logLikelihood(hist)
 #' }
 #' 
 #' @seealso
