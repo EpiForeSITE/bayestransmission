@@ -1,5 +1,7 @@
 # Changelog
 
+## bayestransmission 0.1.0
+
 ## bayestransmission 0.0.0.9000
 
 - Initial CRAN submission.

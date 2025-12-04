@@ -46,7 +46,7 @@ vector is returned unnamed.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# \donttest{
 # Create a linear antibiotic model
 params <- LinearAbxModel()
 model <- newCppModel(params)
@@ -56,6 +56,12 @@ all_params <- getCppModelParams(model)
 
 # View specific parameter groups
 all_params$InCol  # In-unit colonization parameters
+#>    LABX.base    LABX.time LABX.mass.mx LABX.freq.mx  LABX.colabx  LABX.susabx 
+#>        0.001        1.000        1.000        1.000        1.000        1.000 
+#> LABX.susever     LABX.clr  LABX.clrAbx LABX.clrEver 
+#>        1.000        0.010        1.000        1.000 
 all_params$Insitu # In situ parameters
-} # }
+#> Insit.P(unc) Insit.P(col) 
+#>          0.9          0.1 
+# }
 ```

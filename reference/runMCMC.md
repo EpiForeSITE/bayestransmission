@@ -25,7 +25,8 @@ runMCMC(
 
 - modelParameters:
 
-  List of model parameters, see .
+  List of model parameters, see
+  [`LogNormalModelParams()`](https://epiforesite.github.io/bayestransmission/reference/LogNormalModelParams.md).
 
 - nsims:
 
