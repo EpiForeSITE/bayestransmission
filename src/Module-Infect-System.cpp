@@ -14,22 +14,31 @@ RCPP_EXPOSED_AS(RRandom)
 RCPP_EXPOSED_CLASS_NODECL(util::Object)
 RCPP_EXPOSED_CLASS_NODECL(util::MapLink)
 
+// Critical classes (always exposed)
+RCPP_EXPOSED_AS(util::Random)
+RCPP_EXPOSED_AS(infect::Model)
+RCPP_EXPOSED_AS(infect::System)
+RCPP_EXPOSED_AS(infect::SystemHistory)
+RCPP_EXPOSED_AS(infect::EpisodeHistory)
+RCPP_EXPOSED_AS(infect::SystemEpisodeHistory)
+
+#ifdef BAYESTRANSMISSION_COMPREHENSIVE_TESTING
+// Comprehensive testing classes
+RCPP_EXPOSED_AS(infect::Event)
+RCPP_EXPOSED_AS(infect::Patient)
+RCPP_EXPOSED_AS(infect::Sampler)
+#endif
+
+#ifdef BAYESTRANSMISSION_ALL_CLASSES
+// All optional classes
 RCPP_EXPOSED_AS(util::IntMap)
 RCPP_EXPOSED_AS(util::List)
 RCPP_EXPOSED_AS(util::Map)
-RCPP_EXPOSED_AS(util::Random)
-
-RCPP_EXPOSED_AS(infect::Event)
 RCPP_EXPOSED_AS(infect::HistoryLink)
-RCPP_EXPOSED_AS(infect::Model)
-RCPP_EXPOSED_AS(infect::Patient)
-RCPP_EXPOSED_AS(infect::Sampler)
 RCPP_EXPOSED_AS(infect::SetLocationState)
-RCPP_EXPOSED_AS(infect::System)
-RCPP_EXPOSED_AS(infect::SystemEpisodeHistory)
-RCPP_EXPOSED_AS(infect::SystemHistory)
-RCPP_EXPOSED_AS(infect::EpisodeHistory)
+#endif
 
+#ifdef BAYESTRANSMISSION_ALL_CLASSES
 // Global cache to keep shared_ptrs alive as long as System exists
 // This prevents the IntMap/Map from being deleted when returned to R
 static std::map<infect::System*, std::shared_ptr<util::IntMap>> fac_cache;
@@ -75,7 +84,9 @@ static SEXP System_getEpisodes_wrapper(infect::System* sys, infect::Patient* p) 
     return methods_new("Rcpp_CppMap", 
                       Rcpp::Named(".object_pointer") = Rcpp::XPtr<util::Map>(m, false));
 }
+#endif
 
+#ifdef BAYESTRANSMISSION_ALL_CLASSES
 /**
  * @brief Wrapper function to extract all Events from a SystemHistory and return them as an Rcpp::List
  * 
@@ -167,47 +178,54 @@ static SEXP SystemHistory_getHistoryLinkList_wrapper(infect::SystemHistory* hist
     
     return link_list;
 }
+#endif
 
 // TODO: Add System destructor hook to clear cache entries for deleted Systems
 
 void init_Module_infect_system(){
     using namespace Rcpp;
     
+#ifdef BAYESTRANSMISSION_COMPREHENSIVE_TESTING
     class_<infect::Sampler>("CppSampler")
         .derives<util::Object>("CppObject")
         .constructor<SystemHistory*, Model*, Random*>()
         .method<void>("sampleModel", &infect::Sampler::sampleModel)
         .method<void>("sampleEpisodes", &infect::Sampler::sampleEpisodes)
     ;
+#endif
     
     class_<System>("CppSystem")
         .derives<util::Object>("CppObject")
         .constructor<std::vector<int>, std::vector<int>, std::vector<double>, std::vector<int>, std::vector<int>>()
         .property("log", &System::get_log)
-        .method("getFacilities", &System_getFacilities_wrapper)
-        .method("getUnits", &System::getUnits)
-        .method("getPatients", &System_getPatients_wrapper)
-        .method("getEpisodes", &System_getEpisodes_wrapper)
         .method("startTime", &System::startTime)
         .method("endTime", &System::endTime)
         .method("countEpisodes", (int (infect::System::*)() const)&infect::System::countEpisodes)
         .method("countEvents", (int (infect::System::*)() const)&infect::System::countEvents)
+#ifdef BAYESTRANSMISSION_ALL_CLASSES
+        .method("getFacilities", &System_getFacilities_wrapper)
+        .method("getUnits", &System::getUnits)
+        .method("getPatients", &System_getPatients_wrapper)
+        .method("getEpisodes", &System_getEpisodes_wrapper)
         .method("getSystemCounts", (util::List* (infect::System::*)() const)&infect::System::getSystemCounts)
+#endif
     ;
     
     class_<infect::SystemHistory>("CppSystemHistory")
         .derives<util::Object>("CppObject")
         .constructor<infect::System*, infect::Model*, bool>()
         .property("sumocc", &infect::SystemHistory::sumocc)
+        .property("Episodes", &infect::SystemHistory::getEpisodes)
+        .property("Admissions", &infect::SystemHistory::getAdmissions)
+        .property("Discharges", &infect::SystemHistory::getDischarges)
+#ifdef BAYESTRANSMISSION_ALL_CLASSES
         .property("UnitHeads", &infect::SystemHistory::getUnitHeads)
         .property("PatientHeads", &infect::SystemHistory::getPatientHeads)
         .property("FacilityHeads", &infect::SystemHistory::getFacilityHeads)
         .property("SystemHead", &infect::SystemHistory::getSystemHead)
-        .property("Episodes", &infect::SystemHistory::getEpisodes)
-        .property("Admissions", &infect::SystemHistory::getAdmissions)
-        .property("Discharges", &infect::SystemHistory::getDischarges)
         .method("getEventList", &SystemHistory_getEventList_wrapper)
         .method("getHistoryLinkList", &SystemHistory_getHistoryLinkList_wrapper)
+#endif
     ;
     
 }

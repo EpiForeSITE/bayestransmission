@@ -80,28 +80,38 @@ EXPORT_POINTER(util::Object)
 
 CREATE_WRAP_REFCLASS(util,Map)
 
-// infect
+// infect - Critical classes (always exposed)
+CREATE_WRAP_REFCLASS( infect, Model )
+CREATE_WRAP_REFCLASS( infect, System )
+CREATE_WRAP_REFCLASS( infect, SystemEpisodeHistory )
+CREATE_WRAP_REFCLASS( infect, SystemHistory )
+CREATE_WRAP_REFCLASS( infect, EpisodeHistory )
+CREATE_WRAP_REFCLASS( infect, FacilityEpisodeHistory )
+CREATE_WRAP_REFCLASS( infect, UnitEpisodeHistory )
+
+#ifdef BAYESTRANSMISSION_COMPREHENSIVE_TESTING
+// Comprehensive testing classes
+CREATE_WRAP_REFCLASS( infect, Event )
+CREATE_WRAP_REFCLASS( infect, Facility )
+CREATE_WRAP_REFCLASS( infect, Patient )
+CREATE_WRAP_REFCLASS( infect, PatientState )
+CREATE_WRAP_REFCLASS( infect, Sampler )
+CREATE_WRAP_REFCLASS( infect, Unit )
+
+// State classes for comprehensive testing
+CREATE_WRAP_REFCLASS( infect, SetLocationState )
+CREATE_WRAP_REFCLASS( infect, State )
+#endif
+
+#ifdef BAYESTRANSMISSION_ALL_CLASSES
+// All optional classes
 CREATE_WRAP_REFCLASS( infect, AbxLocationState )
 CREATE_WRAP_REFCLASS( infect, AbxPatientState )
 CREATE_WRAP_REFCLASS( infect, CountLocationState )
 CREATE_WRAP_REFCLASS( infect, Episode )
-CREATE_WRAP_REFCLASS( infect, EpisodeHistory )
-CREATE_WRAP_REFCLASS( infect, Event )
-CREATE_WRAP_REFCLASS( infect, Facility )
-CREATE_WRAP_REFCLASS( infect, FacilityEpisodeHistory )
 CREATE_WRAP_REFCLASS( infect, HistoryLink )
 CREATE_WRAP_REFCLASS( infect, LocationState )
-CREATE_WRAP_REFCLASS( infect, Model )
-CREATE_WRAP_REFCLASS( infect, Patient )
-CREATE_WRAP_REFCLASS( infect, PatientState )
-CREATE_WRAP_REFCLASS( infect, Sampler )
-CREATE_WRAP_REFCLASS( infect, SetLocationState )
-CREATE_WRAP_REFCLASS( infect, State )
-CREATE_WRAP_REFCLASS( infect, System )
-CREATE_WRAP_REFCLASS( infect, SystemEpisodeHistory )
-CREATE_WRAP_REFCLASS( infect, SystemHistory )
-CREATE_WRAP_REFCLASS( infect, Unit )
-CREATE_WRAP_REFCLASS( infect, UnitEpisodeHistory )
+#endif
 // CREATE_WRAP_REFCLASS(infect,UnitTrackingModel )
 
 // Models
@@ -115,7 +125,9 @@ CREATE_WRAP_REFCLASS( models, OutColParams )
 CREATE_WRAP_REFCLASS( models, Parameters )
 CREATE_WRAP_REFCLASS( models, RandomTestParams )
 CREATE_WRAP_REFCLASS( models, TestParams )
+#ifdef BAYESTRANSMISSION_ALL_CLASSES
 CREATE_WRAP_REFCLASS( models, TestParamsAbx )
+#endif
 CREATE_WRAP_REFCLASS( models, UnitLinkedModel )
 
 // LogNormal
@@ -155,7 +167,11 @@ template <> SEXP Rcpp::wrap(const infect::EventCoding::EventCode& code)
 
 // [[Rcpp::export]]
 SEXP asAbxLocationState(SEXP x){
+#ifdef BAYESTRANSMISSION_ALL_CLASSES
 MAKE_R_CONVERTER(infect::AbxLocationState)
+#else
+    Rcpp::stop("asAbxLocationState is not available in this build. Rebuild with BAYESTRANSMISSION_ALL_CLASSES defined.");
+#endif
 }
 
 // [[Rcpp::export]]
@@ -176,6 +192,7 @@ SEXP asMap(SEXP x){
 // [[Rcpp::export]]
 SEXP asHistoryLink(SEXP x)
 {
+#ifdef BAYESTRANSMISSION_ALL_CLASSES
     if (TYPEOF(x) == EXTPTRSXP) {
         Rcpp::XPtr<HistoryLink> Xptr = Rcpp::as<Rcpp::XPtr<HistoryLink>>(x);
         return wrap(dynamic_cast<HistoryLink*>(Xptr.get()));
@@ -187,6 +204,9 @@ SEXP asHistoryLink(SEXP x)
         return wrap(dynamic_cast<HistoryLink*>(Xptr.get()));
     } else
         Rcpp::stop("ptr must be an external pointer");
+#else
+    Rcpp::stop("asHistoryLink is not available in this build. Rebuild with BAYESTRANSMISSION_ALL_CLASSES defined.");
+#endif
 }
 
 // [[Rcpp::export]]
@@ -215,27 +235,38 @@ RCPP_EXPOSED_AS(RRandom)
     RCPP_EXPOSED_AS(util::Map)
     RCPP_EXPOSED_AS(util::Random)
 
-    RCPP_EXPOSED_AS(infect::AbxLocationState)
-    RCPP_EXPOSED_AS(infect::AbxPatientState)
-    RCPP_EXPOSED_AS(infect::CountLocationState)
-    RCPP_EXPOSED_AS(infect::Episode)
+    // Critical classes (always exposed)
+    RCPP_EXPOSED_AS(infect::Model)
+    RCPP_EXPOSED_AS(infect::System)
+    RCPP_EXPOSED_AS(infect::SystemEpisodeHistory)
+    RCPP_EXPOSED_AS(infect::SystemHistory)
     RCPP_EXPOSED_AS(infect::EpisodeHistory)
+    RCPP_EXPOSED_AS(infect::FacilityEpisodeHistory)
+    RCPP_EXPOSED_AS(infect::UnitEpisodeHistory)
+
+#ifdef BAYESTRANSMISSION_COMPREHENSIVE_TESTING
+    // Comprehensive testing classes
     RCPP_EXPOSED_AS(infect::Event)
     RCPP_EXPOSED_AS(infect::Facility)
-    RCPP_EXPOSED_AS(infect::FacilityEpisodeHistory)
-    RCPP_EXPOSED_AS(infect::HistoryLink)
-    RCPP_EXPOSED_AS(infect::LocationState)
-    RCPP_EXPOSED_AS(infect::Model)
     RCPP_EXPOSED_AS(infect::Patient)
     RCPP_EXPOSED_AS(infect::PatientState)
     RCPP_EXPOSED_AS(infect::RawEvent)
     RCPP_EXPOSED_AS(infect::RawEventList)
     RCPP_EXPOSED_AS(infect::Sampler)
-    RCPP_EXPOSED_AS(infect::SetLocationState)
-    RCPP_EXPOSED_AS(infect::System)
-    RCPP_EXPOSED_AS(infect::SystemEpisodeHistory)
-    RCPP_EXPOSED_AS(infect::SystemHistory)
     RCPP_EXPOSED_AS(infect::Unit)
-    RCPP_EXPOSED_AS(infect::UnitEpisodeHistory)
+    
+    // State classes
+    RCPP_EXPOSED_AS(infect::SetLocationState)
+#endif
+
+#ifdef BAYESTRANSMISSION_ALL_CLASSES
+    // All optional classes
+    RCPP_EXPOSED_AS(infect::AbxLocationState)
+    RCPP_EXPOSED_AS(infect::AbxPatientState)
+    RCPP_EXPOSED_AS(infect::CountLocationState)
+    RCPP_EXPOSED_AS(infect::Episode)
+    RCPP_EXPOSED_AS(infect::HistoryLink)
+    RCPP_EXPOSED_AS(infect::LocationState)
+#endif
 
 

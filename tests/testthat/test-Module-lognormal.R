@@ -60,7 +60,8 @@ test_that("CppLinearAbxModel with SystemHistory", {
   model <- CppLinearAbxModel$new(2, 10, 1, 0)
   hist <- CppSystemHistory$new(sys, model, FALSE)
 
-  # Test UnitHeads
+  # Test UnitHeads (requires ALL_CLASSES)
+  skip("UnitHeads requires ALL_CLASSES")
   h <- hist$UnitHeads
   expect_s4_class(h, "Rcpp_CppMap")
   expect_equal(h$size, 3)

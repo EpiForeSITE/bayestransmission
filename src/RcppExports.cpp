@@ -33,6 +33,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// getExposureFlags
+Rcpp::List getExposureFlags();
+RcppExport SEXP _bayestransmission_getExposureFlags() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(getExposureFlags());
+    return rcpp_result_gen;
+END_RCPP
+}
 // runMCMC
 SEXP runMCMC(Rcpp::DataFrame data, Rcpp::List modelParameters, unsigned int nsims, unsigned int nburn, bool outputparam, bool outputfinal, bool verbose);
 RcppExport SEXP _bayestransmission_runMCMC(SEXP dataSEXP, SEXP modelParametersSEXP, SEXP nsimsSEXP, SEXP nburnSEXP, SEXP outputparamSEXP, SEXP outputfinalSEXP, SEXP verboseSEXP) {
@@ -135,6 +145,7 @@ RcppExport SEXP _rcpp_module_boot_BayesianInfectiousDiseaseModelingModule();
 static const R_CallMethodDef CallEntries[] = {
     {"_bayestransmission_CodeToEvent", (DL_FUNC) &_bayestransmission_CodeToEvent, 1},
     {"_bayestransmission_EventToCode", (DL_FUNC) &_bayestransmission_EventToCode, 1},
+    {"_bayestransmission_getExposureFlags", (DL_FUNC) &_bayestransmission_getExposureFlags, 0},
     {"_bayestransmission_runMCMC", (DL_FUNC) &_bayestransmission_runMCMC, 7},
     {"_bayestransmission_newModelExport", (DL_FUNC) &_bayestransmission_newModelExport, 2},
     {"_bayestransmission_testHistoryLinkLogLikelihoods", (DL_FUNC) &_bayestransmission_testHistoryLinkLogLikelihoods, 1},

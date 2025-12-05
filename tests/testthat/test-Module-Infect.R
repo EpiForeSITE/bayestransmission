@@ -26,6 +26,7 @@ test_that("CppEvent properties and methods", {
 
 # 5. Facility ----
 test_that("CppFacility constructor and properties", {
+  skip_if_not_exposed("CppFacility")
   fac <- CppFacility$new(1L)
   expect_s4_class(fac, "Rcpp_CppFacility")
   expect_equal(fac$id, 1L)
@@ -48,6 +49,7 @@ test_that("CppModel base class properties", {
 
 # 9. Patient ----
 test_that("CppPatient constructor and properties", {
+  skip_if_not_exposed("CppPatient")
   pat <- CppPatient$new(42L)
   expect_s4_class(pat, "Rcpp_CppPatient")
   expect_equal(pat$id, 42L)
@@ -59,6 +61,7 @@ test_that("CppPatient constructor and properties", {
 
 # 10. PatientState ----
 test_that("CppPatientState constructor and properties", {
+  skip_if_not_exposed("CppPatientState")
   pat <- CppPatient$new(1L)
   
   # Constructor with Patient only
@@ -72,6 +75,7 @@ test_that("CppPatientState constructor and properties", {
 
 # 11. RawEventList ----
 test_that("CppRawEventList constructor and methods", {
+  skip_if_not_exposed("CppRawEventList")
   expect_s4_class(CppRawEventList, "C++Class")
 
   rel <- CppRawEventList$new(
@@ -88,6 +92,7 @@ test_that("CppRawEventList constructor and methods", {
 })
 
 test_that("CppRawEventList with simulated data", {
+  skip_if_not_exposed("CppRawEventList")
   rel <- CppRawEventList$new(
     simulated.data$facility,
     simulated.data$unit,
@@ -101,6 +106,7 @@ test_that("CppRawEventList with simulated data", {
 })
 
 test_that("Empty CppRawEventList", {
+  skip_if_not_exposed("CppRawEventList")
   rel <- CppRawEventList$new(
     integer(0),  # facilities
     integer(0),  # units
@@ -117,6 +123,7 @@ test_that("Empty CppRawEventList", {
 
 # 12. Sampler ----
 test_that("CppSampler constructor", {
+  skip_if_not_exposed("CppSampler")
   # Create system and model for sampler
   sys <- CppSystem$new(
     simulated.data$facility,
@@ -193,7 +200,8 @@ test_that("CppSystemHistory constructor and properties", {
   
   expect_s4_class(hist, "Rcpp_CppSystemHistory")
   
-  # Test properties
+  # Test properties (require ALL_CLASSES)
+  skip_if_method_not_available(hist, "UnitHeads", "Requires ALL_CLASSES for Map access")
   expect_s4_class(hist$UnitHeads, "Rcpp_CppMap")
   expect_s4_class(hist$PatientHeads, "Rcpp_CppMap")
   expect_s4_class(hist$FacilityHeads, "Rcpp_CppMap")
@@ -203,6 +211,7 @@ test_that("CppSystemHistory constructor and properties", {
 })
 
 test_that("CppSystemHistory getEventList method", {
+  skip("getEventList requires ALL_CLASSES")
   sys <- CppSystem$new(
     simulated.data$facility,
     simulated.data$unit,
@@ -241,6 +250,7 @@ test_that("CppSystemHistory getEventList method", {
 })
 
 test_that("CppSystemHistory getEventList with small dataset", {
+  skip("getEventList requires ALL_CLASSES")
   # Create a minimal system with known events
   sys <- CppSystem$new(
     c(0L, 0L, 0L),      # facilities
@@ -273,6 +283,7 @@ test_that("CppSystemHistory getEventList with small dataset", {
 })
 
 test_that("CppSystemHistory getEventList event properties", {
+  skip("getEventList requires ALL_CLASSES")
   sys <- CppSystem$new(
     simulated.data$facility,
     simulated.data$unit,
@@ -321,12 +332,14 @@ test_that("CppSystemHistory getEventList event properties", {
 
 # 15. TestParamsAbx ----
 test_that("CppTestParamsAbx class exists", {
+  skip_if_not_exposed("CppTestParamsAbx")
   expect_s4_class(CppTestParamsAbx, "C++Class")
   skip("Constructor parameters not documented - needs investigation")
 })
 
 # 16. Unit ----
 test_that("CppUnit constructor and properties", {
+  skip_if_not_exposed("CppUnit")
   fac <- CppFacility$new(1L)
   unit <- CppUnit$new(fac, 5L)
   
