@@ -1,6 +1,7 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://epiforesite.github.io/bayestransmission/404.html</loc></url>
 <url><loc>https://epiforesite.github.io/bayestransmission/LICENSE-text.html</loc></url>
+<url><loc>https://epiforesite.github.io/bayestransmission/PRE_CRAN_CHECKLIST.html</loc></url>
 <url><loc>https://epiforesite.github.io/bayestransmission/articles/bayesian-transmission.html</loc></url>
 <url><loc>https://epiforesite.github.io/bayestransmission/articles/index.html</loc></url>
 <url><loc>https://epiforesite.github.io/bayestransmission/authors.html</loc></url>
@@ -23,6 +24,7 @@
 <url><loc>https://epiforesite.github.io/bayestransmission/reference/RandomTestParams.html</loc></url>
 <url><loc>https://epiforesite.github.io/bayestransmission/reference/SurveillanceTestParams.html</loc></url>
 <url><loc>https://epiforesite.github.io/bayestransmission/reference/getCppModelParams.html</loc></url>
+<url><loc>https://epiforesite.github.io/bayestransmission/reference/getExposureFlags.html</loc></url>
 <url><loc>https://epiforesite.github.io/bayestransmission/reference/index.html</loc></url>
 <url><loc>https://epiforesite.github.io/bayestransmission/reference/mcmc_to_dataframe.html</loc></url>
 <url><loc>https://epiforesite.github.io/bayestransmission/reference/newCppModel.html</loc></url>

@@ -147,6 +147,9 @@ insituParams <- model$InsituParams
 # Get parameter values
 paramValues <- inColParams$values
 
+# Get parameter names (if available)
+paramNames <- inColParams$names
+
 # Create a log-normal model
 params <- LogNormalModelParams("LogNormalModel")
 model <- newCppModel(params, verbose = TRUE)
@@ -161,20 +164,5 @@ model <- newCppModel(params, verbose = TRUE)
 #>   * Setting up In Unit...Done
 #>   * Setting up Abx Rates...Done
 #> Model created successfully
-
-# Use with a system history for likelihood calculation
-sys <- CppSystem$new(
-  as.integer(simulated.data_sorted$facility),
-  as.integer(simulated.data_sorted$unit),
-  simulated.data_sorted$time,
-  as.integer(simulated.data_sorted$patient),
-  as.integer(simulated.data_sorted$type)
-)
-#> Error: object 'CppSystem' not found
-
-hist <- CppSystemHistory$new(sys, model, FALSE)
-#> Error: object 'CppSystemHistory' not found
-ll <- model$logLikelihood(hist)
-#> Error in as.environment(function (x, ...) UseMethod("hist")): invalid object for 'as.environment'
 # }
 ```

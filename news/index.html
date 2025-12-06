@@ -38,6 +38,41 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0" id="bayestransmission-010">bayestransmission 0.1.0<a class="anchor" aria-label="anchor" href="#bayestransmission-010"></a></h2>
+<div class="section level3">
+<h3 id="cran-resubmission-changes-0-1-0">CRAN Resubmission Changes<a class="anchor" aria-label="anchor" href="#cran-resubmission-changes-0-1-0"></a></h3>
+<ul><li>Changed <code>\dontrun{}</code> to <code>\donttest{}</code> in documentation examples per CRAN feedback</li>
+<li>Implemented conditional compilation to reduce package size by 6% (36.3 MB → 34 MB)</li>
+<li>Moved development C++ code out of installed package</li>
+</ul></div>
+<div class="section level3">
+<h3 id="new-features-0-1-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-1-0"></a></h3>
+<ul><li>
+<strong>Conditional Compilation System</strong>: Three-tier build configuration
+<ul><li>Default build exposes 8 critical C++ classes (34 MB)</li>
+<li>Comprehensive testing build adds 8 testing classes (38 MB)<br></li>
+<li>Full build adds 7 additional diagnostic classes (42 MB)</li>
+<li>Added <code><a href="../reference/getExposureFlags.html">getExposureFlags()</a></code> to query build configuration at runtime</li>
+</ul></li>
+<li>
+<strong>Enhanced Testing</strong>: Comprehensive test suite with conditional skipping
+<ul><li>Test helpers: <code>skip_if_not_exposed()</code> and <code>skip_if_method_not_available()</code>
+</li>
+<li>304 tests pass, 38 appropriately skip in minimal build</li>
+<li>Full coverage of MCMC, likelihood computation, and model creation</li>
+</ul></li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-0-1-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-1-0"></a></h3>
+<ul><li>Fixed potential segfaults in SystemHistory container access methods</li>
+<li>Improved memory management with shared_ptr caching for Map/IntMap objects</li>
+</ul></div>
+<div class="section level3">
+<h3 id="internal-changes-0-1-0">Internal Changes<a class="anchor" aria-label="anchor" href="#internal-changes-0-1-0"></a></h3>
+<ul><li>Reorganized C++ class exposure into logical tiers</li>
+<li>Added stub functions for conditionally compiled exports with informative errors</li>
+<li>Reduced Rcpp template instantiation by ~65%</li>
+<li>Cleaned up package structure (moved original_cpp out of inst/)</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9000" id="bayestransmission-0009000">bayestransmission 0.0.0.9000<a class="anchor" aria-label="anchor" href="#bayestransmission-0009000"></a></h2>

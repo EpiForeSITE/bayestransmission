@@ -136,6 +136,9 @@ based on the model type specified in <code>modelParameters$modname</code>.</p>
 <span class="r-in"><span><span class="co"># Get parameter values</span></span></span>
 <span class="r-in"><span><span class="va">paramValues</span> <span class="op">&lt;-</span> <span class="va">inColParams</span><span class="op">$</span><span class="va">values</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Get parameter names (if available)</span></span></span>
+<span class="r-in"><span><span class="va">paramNames</span> <span class="op">&lt;-</span> <span class="va">inColParams</span><span class="op">$</span><span class="va">names</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create a log-normal model</span></span></span>
 <span class="r-in"><span><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="LogNormalModelParams.html">LogNormalModelParams</a></span><span class="op">(</span><span class="st">"LogNormalModel"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">newCppModel</span><span class="op">(</span><span class="va">params</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
@@ -150,21 +153,6 @@ based on the model type specified in <code>modelParameters$modname</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   * Setting up In Unit...Done</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   * Setting up Abx Rates...Done</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Model created successfully</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Use with a system history for likelihood calculation</span></span></span>
-<span class="r-in"><span><span class="va">sys</span> <span class="op">&lt;-</span> <span class="va">CppSystem</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">simulated.data_sorted</span><span class="op">$</span><span class="va">facility</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">simulated.data_sorted</span><span class="op">$</span><span class="va">unit</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  <span class="va">simulated.data_sorted</span><span class="op">$</span><span class="va">time</span>,</span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">simulated.data_sorted</span><span class="op">$</span><span class="va">patient</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">simulated.data_sorted</span><span class="op">$</span><span class="va">type</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'CppSystem' not found</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">hist</span> <span class="op">&lt;-</span> <span class="va">CppSystemHistory</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">sys</span>, <span class="va">model</span>, <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'CppSystemHistory' not found</span>
-<span class="r-in"><span><span class="va">ll</span> <span class="op">&lt;-</span> <span class="va">model</span><span class="op">$</span><span class="fu">logLikelihood</span><span class="op">(</span><span class="va">hist</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in as.environment(function (x, ...) UseMethod("hist")):</span> invalid object for 'as.environment'</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

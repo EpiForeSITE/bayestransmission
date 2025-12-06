@@ -167,6 +167,8 @@ U01CK000585.
   : Surveillance Test Parameters
 - [`getCppModelParams()`](https://epiforesite.github.io/bayestransmission/reference/getCppModelParams.md)
   : Extract Model Parameters from C++ Model Object
+- [`getExposureFlags()`](https://epiforesite.github.io/bayestransmission/reference/getExposureFlags.md)
+  : Get compilation flags for exposed classes
 - [`mcmc_to_dataframe()`](https://epiforesite.github.io/bayestransmission/reference/mcmc_to_dataframe.md)
   : Convert MCMC Parameters to Data Frame
 - [`newCppModel()`](https://epiforesite.github.io/bayestransmission/reference/newCppModel.md)
