@@ -29,7 +29,10 @@
 ^test_.*\.R$
 ^original_cpp_with_r_data\.txt$
 ^check_output\.log$
+^full_check\.log$
+^.*\.log$
 ^compare_ll\.py$
+^PRE_CRAN_CHECKLIST\.md$
 
 # Development directories
 ^copilot$
