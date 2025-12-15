@@ -19,16 +19,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/EpiForeSITE/bayestransmission/blob/v0.1.0/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/EpiForeSITE/bayestransmission/blob/main/DESCRIPTION)
 
 Redd A, Thomas A (2025). *bayestransmission: Bayesian Transmission
-Models*. R package version 0.1.0,
+Models*. R package version 0.1.0.9000,
 <https://epiforesite.github.io/bayestransmission/>.
 
     @Manual{,
       title = {bayestransmission: Bayesian Transmission Models},
       author = {Andrew Redd and Alun Thomas},
       year = {2025},
-      note = {R package version 0.1.0},
+      note = {R package version 0.1.0.9000},
       url = {https://epiforesite.github.io/bayestransmission/},
     }
