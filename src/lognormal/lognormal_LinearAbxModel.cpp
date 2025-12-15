@@ -2,7 +2,7 @@
 
 namespace lognormal{
 
-LinearAbxModel::LinearAbxModel(int nst, int nmetro, int fw, int ch) : LogNormalModel(nst,nmetro,fw,ch)
+LinearAbxModel::LinearAbxModel(int nst, int nmetro, int fw, int ch) : LogNormalModel(nst,0,nmetro,fw,ch)
 {
     InColParams *icp = getInColParams();
     delete icp;

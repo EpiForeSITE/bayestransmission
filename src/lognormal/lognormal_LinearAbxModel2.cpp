@@ -2,7 +2,7 @@
 
 namespace lognormal{
 
-LinearAbxModel2::LinearAbxModel2(int nst, int nmetro, int fw, int ch) : LogNormalModel(nst,nmetro,fw,ch)
+LinearAbxModel2::LinearAbxModel2(int nst, int nmetro, int fw, int ch) : LogNormalModel(nst,0,nmetro,fw,ch)
 {
     // Constructor implementation for LinearAbxModel2
     // LinearAbxModel2 uses LinearAbxICP2 which has different transformation:

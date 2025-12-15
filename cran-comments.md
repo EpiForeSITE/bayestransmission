@@ -46,6 +46,20 @@ The conditional compilation feature:
 
 * This is a new release.
 
+**NOTE on installed package size:**
+```
+  installed size is 27.5Mb
+  sub-directories of 1Mb or more:
+    libs  26.5Mb
+```
+
+This is expected for a package with extensive C++ code using Rcpp and RcppArmadillo. 
+We have already implemented conditional compilation to reduce the binary size by 6% 
+(from 36.3 MB to 34 MB on Linux, 26.5 MB on macOS). The size is necessary to provide 
+the Bayesian MCMC inference algorithms and likelihood computations for infectious 
+disease transmission models. Further size reduction would require removing essential 
+functionality.
+
 ## Downstream dependencies
 
 There are currently no downstream dependencies for this package.
