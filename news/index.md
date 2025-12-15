@@ -2,6 +2,12 @@
 
 ## bayestransmission (development version)
 
+### Bug Fixes
+
+- Fixed undefined behavior in LinearAbxModel and LinearAbxModel2
+  constructors that caused incorrect parent constructor parameter
+  mapping (UBSAN downcast errors)
+
 ## bayestransmission 0.1.0
 
 CRAN release: 2025-12-12
