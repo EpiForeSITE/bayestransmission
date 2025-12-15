@@ -2,6 +2,8 @@
 
 ## bayestransmission 0.1.0
 
+CRAN release: 2025-12-12
+
 ### CRAN Resubmission Changes
 
 - Changed `\dontrun{}` to `\donttest{}` in documentation examples per
