@@ -7,5 +7,3 @@ class RMixedModel : lognormal::MixedModel{
 
 
 };
-
-

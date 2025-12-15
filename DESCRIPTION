@@ -9,9 +9,9 @@ Authors@R: c(
     person("CDC's Center for Forecasting and Outbreak Analytics", role = c("fnd"),
            comment = c("This project was made possible by cooperative agreement CDC-RFA-FT-23-0069 (grant # NU38FT000009-01-00) from the CDC's Center for Forecasting and Outbreak Analytics. Its contents are solely the responsibility of the authors and do not necessarily represent the official views of the Centers for Disease Control and Prevention."))
     )
-Description: Provides Bayesian inference methods for infectious disease transmission 
-    models in healthcare settings. Implements Markov Chain Monte Carlo (MCMC) algorithms 
-    for estimating transmission parameters from patient-level data including admission, 
+Description: Provides Bayesian inference methods for infectious disease transmission
+    models in healthcare settings. Implements Markov Chain Monte Carlo (MCMC) algorithms
+    for estimating transmission parameters from patient-level data including admission,
     discharge, and testing events as described in Thomas 'et al.' (2015) <doi:10.1093/imammb/dqt021>.
 License: MIT + file LICENSE
 Encoding: UTF-8

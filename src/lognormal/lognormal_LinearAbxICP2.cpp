@@ -69,7 +69,7 @@ double LinearAbxICP2::acqRate(int nsus, int onabx, int everabx, int ncolabx, int
 
     double c = (ncol-ncolabx) + epar[0][4]*ncolabx;
     double y =  epar[0][0] + c * epar[0][2] + c * (tot > 0 ? epar[0][3]/tot : 0);
-    
+
     double z = (nsus-everabx) + epar[0][6] * ( (everabx-onabx) + onabx * epar[0][5]);
 
     return x * y * z;
@@ -141,4 +141,3 @@ void LinearAbxICP2::set(int i, int j, double value, int update, double prival, d
 }
 
 } // namespace lognormal
-

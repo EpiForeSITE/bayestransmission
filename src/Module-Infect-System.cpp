@@ -57,7 +57,7 @@ static SEXP System_getFacilities_wrapper(infect::System* sys) {
         return R_NilValue;
     }
     Rcpp::Function methods_new = Rcpp::Environment::namespace_env("methods")["new"];
-    return methods_new("Rcpp_CppIntMap", 
+    return methods_new("Rcpp_CppIntMap",
                       Rcpp::Named(".object_pointer") = Rcpp::XPtr<util::IntMap>(p, false));
 }
 
@@ -69,7 +69,7 @@ static SEXP System_getPatients_wrapper(infect::System* sys) {
         return R_NilValue;
     }
     Rcpp::Function methods_new = Rcpp::Environment::namespace_env("methods")["new"];
-    return methods_new("Rcpp_CppIntMap", 
+    return methods_new("Rcpp_CppIntMap",
                       Rcpp::Named(".object_pointer") = Rcpp::XPtr<util::IntMap>(p, false));
 }
 
@@ -81,7 +81,7 @@ static SEXP System_getEpisodes_wrapper(infect::System* sys, infect::Patient* p) 
         return R_NilValue;
     }
     Rcpp::Function methods_new = Rcpp::Environment::namespace_env("methods")["new"];
-    return methods_new("Rcpp_CppMap", 
+    return methods_new("Rcpp_CppMap",
                       Rcpp::Named(".object_pointer") = Rcpp::XPtr<util::Map>(m, false));
 }
 #endif
@@ -89,41 +89,41 @@ static SEXP System_getEpisodes_wrapper(infect::System* sys, infect::Patient* p) 
 #ifdef BAYESTRANSMISSION_ALL_CLASSES
 /**
  * @brief Wrapper function to extract all Events from a SystemHistory and return them as an Rcpp::List
- * 
+ *
  * This function traverses the SystemHistory via the system history chain (sNext links)
  * and collects all Event objects, wrapping each in its corresponding Rcpp reference class.
  * The Events are returned in chronological order as they appear in the history chain.
- * 
+ *
  * @param hist Pointer to the SystemHistory object to extract events from
  * @return SEXP An Rcpp::List containing wrapped CppEvent reference class objects.
  *              Returns empty list if hist is nullptr or has no events.
  *              Each Event pointer is wrapped with XPtr(event, false) to indicate
  *              that R should NOT delete these objects (SystemHistory owns them).
- * 
+ *
  * @note The returned Event objects share memory with the SystemHistory and should
  *       not be modified or deleted from R. They are read-only references.
- * 
+ *
  * @usage In R: event_list <- system_history$getEventList()
  */
 static SEXP SystemHistory_getEventList_wrapper(infect::SystemHistory* hist) {
     if (hist == nullptr) {
         return R_NilValue;
     }
-    
+
     Rcpp::List event_list;
     Rcpp::Function methods_new = Rcpp::Environment::namespace_env("methods")["new"];
-    
+
     // Get the system head and traverse all history links
     infect::HistoryLink* link = hist->getSystemHead();
-    
+
     if (link == nullptr) {
         return event_list;  // Return empty list
     }
-    
+
     // Traverse the system history chain via sNext() to collect all events
     for (; link != nullptr; link = link->sNext()) {
         infect::Event* event = link->getEvent();
-        
+
         if (event != nullptr) {
             // Wrap the Event pointer in an Rcpp reference class
             // Use XPtr with false flag to indicate R should not delete it
@@ -133,40 +133,40 @@ static SEXP SystemHistory_getEventList_wrapper(infect::SystemHistory* hist) {
             event_list.push_back(event_obj);
         }
     }
-    
+
     return event_list;
 }
 
 /**
  * @brief Wrapper function to extract all HistoryLinks from a SystemHistory and return them as an Rcpp::List
- * 
+ *
  * This function traverses the SystemHistory via the system history chain (sNext links)
  * and collects all HistoryLink objects, wrapping each in its corresponding Rcpp reference class.
- * 
+ *
  * @param hist Pointer to the SystemHistory object to extract history links from
  * @return SEXP An Rcpp::List containing wrapped CppHistoryLink reference class objects.
  *              Returns empty list if hist is nullptr or has no history links.
- * 
+ *
  * @note The returned HistoryLink objects share memory with the SystemHistory and should
  *       not be modified or deleted from R. They are read-only references.
- * 
+ *
  * @usage In R: link_list <- system_history$getHistoryLinkList()
  */
 static SEXP SystemHistory_getHistoryLinkList_wrapper(infect::SystemHistory* hist) {
     if (hist == nullptr) {
         return R_NilValue;
     }
-    
+
     Rcpp::List link_list;
     Rcpp::Function methods_new = Rcpp::Environment::namespace_env("methods")["new"];
-    
+
     // Get the system head and traverse all history links
     infect::HistoryLink* link = hist->getSystemHead();
-    
+
     if (link == nullptr) {
         return link_list;  // Return empty list
     }
-    
+
     // Traverse the system history chain via sNext() to collect all history links
     for (; link != nullptr; link = link->sNext()) {
         // Wrap the HistoryLink pointer in an Rcpp reference class
@@ -175,7 +175,7 @@ static SEXP SystemHistory_getHistoryLinkList_wrapper(infect::SystemHistory* hist
                                    Rcpp::Named(".object_pointer") = Rcpp::XPtr<infect::HistoryLink>(link, false));
         link_list.push_back(link_obj);
     }
-    
+
     return link_list;
 }
 #endif
@@ -184,7 +184,7 @@ static SEXP SystemHistory_getHistoryLinkList_wrapper(infect::SystemHistory* hist
 
 void init_Module_infect_system(){
     using namespace Rcpp;
-    
+
 #ifdef BAYESTRANSMISSION_COMPREHENSIVE_TESTING
     class_<infect::Sampler>("CppSampler")
         .derives<util::Object>("CppObject")
@@ -193,7 +193,7 @@ void init_Module_infect_system(){
         .method<void>("sampleEpisodes", &infect::Sampler::sampleEpisodes)
     ;
 #endif
-    
+
     class_<System>("CppSystem")
         .derives<util::Object>("CppObject")
         .constructor<std::vector<int>, std::vector<int>, std::vector<double>, std::vector<int>, std::vector<int>>()
@@ -210,7 +210,7 @@ void init_Module_infect_system(){
         .method("getSystemCounts", (util::List* (infect::System::*)() const)&infect::System::getSystemCounts)
 #endif
     ;
-    
+
     class_<infect::SystemHistory>("CppSystemHistory")
         .derives<util::Object>("CppObject")
         .constructor<infect::System*, infect::Model*, bool>()
@@ -227,5 +227,5 @@ void init_Module_infect_system(){
         .method("getHistoryLinkList", &SystemHistory_getHistoryLinkList_wrapper)
 #endif
     ;
-    
+
 }

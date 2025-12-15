@@ -87,7 +87,7 @@ inline void setupInsituParams(
 inline void setupInsituParams(InsituParams * isp, Rcpp::List insituParameters)
 {
     // std::ostringstream ss;
-    // ss << "DEBUG InsituParams: probs=[" 
+    // ss << "DEBUG InsituParams: probs=["
     //    << as<std::vector<double>>(insituParameters["probs"])[0] << ", "
     //    << as<std::vector<double>>(insituParameters["probs"])[1] << ", "
     //    << as<std::vector<double>>(insituParameters["probs"])[2] << "]";
@@ -127,12 +127,12 @@ inline void setupSurveillanceTestParamsAbx(
     // TestParamsAbx::set(i, j, value, update, prival, prin)
     // where i = colonization state (0=unc, 1=lat, 2=col)
     //       j = abx status (0=off, 1=on)
-    
+
     // For now, set both off-abx and on-abx to the same values
     // (matching constructor behavior)
-    
+
     // Off-abx:
-    stp->set(0, 0, 
+    stp->set(0, 0,
              Rcpp::as<double>(stpUncolonizedParam["init"]),
              Rcpp::as<bool>(stpUncolonizedParam["update"]),
              Rcpp::as<double>(stpUncolonizedParam["prior"]),
@@ -147,7 +147,7 @@ inline void setupSurveillanceTestParamsAbx(
              Rcpp::as<bool>(stpColonizedParam["update"]),
              Rcpp::as<double>(stpColonizedParam["prior"]),
              Rcpp::as<double>(stpColonizedParam["weight"]));
-    
+
     // On-abx (same as off-abx for now):
     stp->set(0, 1,
              Rcpp::as<double>(stpUncolonizedParam["init"]),
@@ -323,7 +323,7 @@ void modelsetup(ModelType * model, Rcpp::List modelParameters, bool verbose = fa
     models::TestParamsAbx* stp_abx = dynamic_cast<models::TestParamsAbx*>(stp);
     if (stp_abx != nullptr) {
         Rcpp::List stParams = modelParameters["SurveillanceTest"];
-        setupSurveillanceTestParamsAbx(stp_abx, 
+        setupSurveillanceTestParamsAbx(stp_abx,
                                        Rcpp::as<Rcpp::List>(stParams["uncolonized"]),
                                        Rcpp::as<Rcpp::List>(stParams["colonized"]),
                                        Rcpp::as<Rcpp::List>(stParams["latent"]));
@@ -381,7 +381,7 @@ void modelsetup(lognormal::LinearAbxModel * model, Rcpp::List modelParameters, b
     models::TestParamsAbx* stp = dynamic_cast<models::TestParamsAbx*>(model->getSurveillanceTestParams());
     if (stp != nullptr) {
         Rcpp::List stParams = modelParameters["SurveillanceTest"];
-        setupSurveillanceTestParamsAbx(stp, 
+        setupSurveillanceTestParamsAbx(stp,
                                        Rcpp::as<Rcpp::List>(stParams["uncolonized"]),
                                        Rcpp::as<Rcpp::List>(stParams["colonized"]),
                                        Rcpp::as<Rcpp::List>(stParams["latent"]));

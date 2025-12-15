@@ -110,10 +110,10 @@ public:
 	}
 
     string get_log();
-    
+
     /**
      * @brief Count total number of episodes across all patients
-     * 
+     *
      * @return int Total episode count
      */
     inline int countEpisodes() const
@@ -121,7 +121,7 @@ public:
         if (pepis == nullptr) {
             return 0;
         }
-        
+
         int count = 0;
         for (pepis->init(); pepis->hasNext(); ) {
             util::Map *eps = (util::Map *) pepis->nextValue();
@@ -131,13 +131,13 @@ public:
         }
         return count;
     }
-    
+
     /**
      * @brief Count total number of events across all episodes
-     * 
+     *
      * Counts all events (admissions, discharges, and internal events)
      * across all episodes for all patients.
-     * 
+     *
      * @return int Total event count
      */
     inline int countEvents() const
@@ -145,20 +145,20 @@ public:
         if (pepis == nullptr) {
             return 0;
         }
-        
+
         int count = 0;
         for (pepis->init(); pepis->hasNext(); ) {
             util::Map *eps = (util::Map *) pepis->nextValue();
             if (eps == nullptr) {
                 continue;
             }
-            
+
             for (eps->init(); eps->hasNext(); ) {
                 Episode *ep = (Episode *) eps->next();
                 if (ep == nullptr) {
                     continue;
                 }
-                
+
                 util::List *events = ep->getEvents();
                 if (events != nullptr) {
                     count += events->size();
@@ -167,23 +167,23 @@ public:
         }
         return count;
     }
-    
+
     /**
      * @brief Get counts of various system components
-     * 
+     *
      * Returns a summary of the system structure including counts of
      * facilities, units, patients, episodes, and events.
-     * 
+     *
      * @return util::List* Pointer to list containing Integer objects with counts
      *         Caller is responsible for deleting the returned list.
      */
     inline util::List* getSystemCounts() const
     {
         util::List *counts = new util::List();
-        
+
         // Count facilities (with null check)
         counts->append(new Integer(fac != nullptr ? fac->size() : 0));
-        
+
         // Count units (with null checks)
         int nUnits = 0;
         if (fac != nullptr) {
@@ -198,19 +198,19 @@ public:
             }
         }
         counts->append(new Integer(nUnits));
-        
+
         // Count patients (with null check)
         counts->append(new Integer(pat != nullptr ? pat->size() : 0));
-        
+
         // Count episodes (null checks inside countEpisodes)
         counts->append(new Integer(countEpisodes()));
-        
+
         // Count events (null checks inside countEvents)
         counts->append(new Integer(countEvents()));
-        
+
         return counts;
     }
-    
+
 private:
 
 	double timeOfLastKnownEvent(Episode *ep);

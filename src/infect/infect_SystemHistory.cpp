@@ -163,7 +163,7 @@ SystemHistory::SystemHistory(System *s, Model *m, bool verbose)
                 Event *e = (Event *) t->next();
 
                 HistoryLink *x = makeHistoryLink(m,e);
-                
+
                 if (prev == 0)
                 {
                     pheads->put(patient,x);

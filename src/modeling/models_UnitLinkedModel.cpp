@@ -395,7 +395,7 @@ void UnitLinkedModel::update(infect::SystemHistory *hist, Random *r, int max)
 std::vector<double> UnitLinkedModel::getHistoryLinkLogLikelihoods(infect::SystemHistory *hist)
 {
     std::vector<double> lls;
-    
+
     for (Map *h = hist->getUnitHeads(); h->hasNext(); )
     {
         for (infect::HistoryLink *l = (infect::HistoryLink *) h->nextValue(); l != 0; l = l->uNext())
@@ -404,7 +404,7 @@ std::vector<double> UnitLinkedModel::getHistoryLinkLogLikelihoods(infect::System
             lls.push_back(ll);
         }
     }
-    
+
     return lls;
 }
 

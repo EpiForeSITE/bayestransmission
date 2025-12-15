@@ -67,15 +67,15 @@
 #'
 #' # Get parameter values
 #' paramValues <- inColParams$values
-#' 
+#'
 #' # Get parameter names (if available)
 #' paramNames <- inColParams$names
-#' 
+#'
 #' # Create a log-normal model
 #' params <- LogNormalModelParams("LogNormalModel")
 #' model <- newCppModel(params, verbose = TRUE)
 #' }
-#' 
+#'
 #' @seealso
 #' * [LogNormalModelParams()] for creating model parameters
 #' * [LinearAbxModel()] for linear antibiotic model parameters
@@ -86,36 +86,36 @@ newCppModel <- function(modelParameters, verbose = FALSE) {
   if (!is.list(modelParameters)) {
     stop("modelParameters must be a list")
   }
-  
+
   # Check required fields
   required_fields <- c("modname", "nstates", "nmetro", "forward", "cheat",
-                       "Insitu", "SurveillanceTest", "ClinicalTest", 
-                       "OutCol", "InCol", "Abx", "AbxRate")
+    "Insitu", "SurveillanceTest", "ClinicalTest",
+    "OutCol", "InCol", "Abx", "AbxRate")
   missing_fields <- setdiff(required_fields, names(modelParameters))
   if (length(missing_fields) > 0) {
-    stop("modelParameters is missing required fields: ", 
-         paste(missing_fields, collapse = ", "))
+    stop("modelParameters is missing required fields: ",
+      paste(missing_fields, collapse = ", "))
   }
-  
+
   # Extract model name
   modname <- modelParameters$modname
-  
+
   # Validate model name
   valid_models <- c("LogNormalModel", "LinearAbxModel", "LinearAbxModel2", "MixedModel")
   if (!modname %in% valid_models) {
     stop("Invalid model name '", modname, "'. Must be one of: ",
-         paste(valid_models, collapse = ", "))
+      paste(valid_models, collapse = ", "))
   }
-  
+
   # Create the model using the internal C++ function
   # This function instantiates the appropriate C++ class and sets up all parameters
   if (verbose) {
     message("Creating C++ model of type: ", modname)
   }
-  
+
   # Call the C++ newModel function through the exported wrapper
   model_ptr <- newCppModelInternal(modelParameters, verbose)
-  
+
   # Return the wrapped model
   # The C++ side has already wrapped it in the correct reference class
   return(model_ptr)
@@ -148,10 +148,10 @@ newCppModel <- function(modelParameters, verbose = FALSE) {
 #' # Create a linear antibiotic model
 #' params <- LinearAbxModel()
 #' model <- newCppModel(params)
-#' 
+#'
 #' # Extract all parameters
 #' all_params <- getCppModelParams(model)
-#' 
+#'
 #' # View specific parameter groups
 #' all_params$InCol  # In-unit colonization parameters
 #' all_params$Insitu # In situ parameters
@@ -160,9 +160,9 @@ getCppModelParams <- function(model) {
   if (!inherits(model, "C++Object")) {
     stop("model must be a C++ model object created with newCppModel()")
   }
-  
+
   result <- list()
-  
+
   # Try to access each parameter component
   # Use tryCatch in case some are NULL
   assign_named <- function(values, names_vec) {
@@ -174,58 +174,82 @@ getCppModelParams <- function(model) {
   }
 
   # InsituParams
-  tryCatch({
-    vals <- model$InsituParams$values
-    nms <- NULL
-    if (!is.null(model$InsituParams$paramNames)) nms <- model$InsituParams$paramNames
-    result$Insitu <- assign_named(vals, nms)
-  }, error = function(e) { result$Insitu <<- NULL })
+  tryCatch(
+    {
+      vals <- model$InsituParams$values
+      nms <- NULL
+      if (!is.null(model$InsituParams$paramNames)) nms <- model$InsituParams$paramNames
+      result$Insitu <- assign_named(vals, nms)
+    },
+    error = function(e) {
+      result$Insitu <<- NULL
+    })
 
   # SurveillanceTestParams (Random/TestParams use 'names')
-  tryCatch({
-    vals <- model$SurveillanceTestParams$values
-    nms <- NULL
-    if (!is.null(model$SurveillanceTestParams$names)) nms <- model$SurveillanceTestParams$names
-    result$SurveillanceTest <- assign_named(vals, nms)
-  }, error = function(e) { result$SurveillanceTest <<- NULL })
+  tryCatch(
+    {
+      vals <- model$SurveillanceTestParams$values
+      nms <- NULL
+      if (!is.null(model$SurveillanceTestParams$names)) nms <- model$SurveillanceTestParams$names
+      result$SurveillanceTest <- assign_named(vals, nms)
+    },
+    error = function(e) {
+      result$SurveillanceTest <<- NULL
+    })
 
   # ClinicalTestParams (RandomTestParams inherits TestParams)
-  tryCatch({
-    vals <- model$ClinicalTestParams$values
-    nms <- NULL
-    if (!is.null(model$ClinicalTestParams$names)) nms <- model$ClinicalTestParams$names
-    result$ClinicalTest <- assign_named(vals, nms)
-  }, error = function(e) { result$ClinicalTest <<- NULL })
+  tryCatch(
+    {
+      vals <- model$ClinicalTestParams$values
+      nms <- NULL
+      if (!is.null(model$ClinicalTestParams$names)) nms <- model$ClinicalTestParams$names
+      result$ClinicalTest <- assign_named(vals, nms)
+    },
+    error = function(e) {
+      result$ClinicalTest <<- NULL
+    })
 
   # OutColParams (has names property)
-  tryCatch({
-    vals <- model$OutColParams$values
-    nms <- NULL
-    if (!is.null(model$OutColParams$names)) nms <- model$OutColParams$names
-    result$OutCol <- assign_named(vals, nms)
-  }, error = function(e) { result$OutCol <<- NULL })
+  tryCatch(
+    {
+      vals <- model$OutColParams$values
+      nms <- NULL
+      if (!is.null(model$OutColParams$names)) nms <- model$OutColParams$names
+      result$OutCol <- assign_named(vals, nms)
+    },
+    error = function(e) {
+      result$OutCol <<- NULL
+    })
 
   # InColParams (LogNormalAbxICP / LogNormalICP provide names)
-  tryCatch({
-    vals <- model$InColParams$values
-    nms <- NULL
-    # Some implementations expose 'names'; others may expose 'paramNames'
-    if (!is.null(model$InColParams$names)) nms <- model$InColParams$names else if (!is.null(model$InColParams$paramNames)) nms <- model$InColParams$paramNames
-    result$InCol <- assign_named(vals, nms)
-  }, error = function(e) { result$InCol <<- NULL })
+  tryCatch(
+    {
+      vals <- model$InColParams$values
+      nms <- NULL
+      # Some implementations expose 'names'; others may expose 'paramNames'
+      if (!is.null(model$InColParams$names)) nms <- model$InColParams$names else if (!is.null(model$InColParams$paramNames)) nms <- model$InColParams$paramNames
+      result$InCol <- assign_named(vals, nms)
+    },
+    error = function(e) {
+      result$InCol <<- NULL
+    })
 
   # AbxParams
-  tryCatch({
-    abx_params <- model$AbxParams
-    if (!is.null(abx_params)) {
-      vals <- abx_params$values
-      nms <- NULL
-      if (!is.null(abx_params$names)) nms <- abx_params$names
-      result$Abx <- assign_named(vals, nms)
-    } else {
-      result$Abx <- NULL
-    }
-  }, error = function(e) { result$Abx <<- NULL })
-  
+  tryCatch(
+    {
+      abx_params <- model$AbxParams
+      if (!is.null(abx_params)) {
+        vals <- abx_params$values
+        nms <- NULL
+        if (!is.null(abx_params$names)) nms <- abx_params$names
+        result$Abx <- assign_named(vals, nms)
+      } else {
+        result$Abx <- NULL
+      }
+    },
+    error = function(e) {
+      result$Abx <<- NULL
+    })
+
   return(result)
 }

@@ -153,7 +153,7 @@ SEXP runMCMC(
     // Validate data is sorted by patient, then time
     std::vector<int> patients = as<std::vector<int>>(data[3]);
     std::vector<double> times = as<std::vector<double>>(data[2]);
-    
+
     for (size_t i = 1; i < patients.size(); i++) {
         if (patients[i] < patients[i-1]) {
             Rcpp::stop("Data must be sorted by patient ID, then time. "
@@ -233,7 +233,7 @@ SEXP runMCMC(
     {
         Rcpp::Rcout << "\n=== INITIAL PARAMETERS ===" << std::endl;
         std::ostringstream ss;
-        
+
         // Output parameter components
         model->getInsituParams()->write(ss);
         ss << "\t";
@@ -253,7 +253,7 @@ SEXP runMCMC(
             model->getAbxParams()->write(ss);
             ss << "\t";
         }
-        
+
         double initialLogLike = model->logLikelihood(hist);
         if (std::isinf(initialLogLike) || std::isnan(initialLogLike)) {
             Rcpp::Rcerr << "\nWARNING: Initial log likelihood is " << initialLogLike << "\n";
@@ -391,13 +391,13 @@ SEXP newModelExport(
     bool verbose = false
 ) {
     lognormal::LogNormalModel *model = newModel(modelParameters, verbose);
-    
+
     // Use the existing model2R function to wrap the model parameters
     SEXP result = model2R(model);
-    
+
     // Clean up the model object
     delete model;
-    
+
     return result;
 }
 
@@ -416,17 +416,17 @@ SEXP newModelExport(
 //' @noRd
 // [[Rcpp::export]]
 Rcpp::List testHistoryLinkLogLikelihoods(Rcpp::List modelParameters) {
-    
-    bool verbose = Rcpp::as<bool>(modelParameters.containsElementNamed("verbose") ? 
+
+    bool verbose = Rcpp::as<bool>(modelParameters.containsElementNamed("verbose") ?
                                    modelParameters["verbose"] : Rcpp::wrap(true));
-    
+
     if (verbose) Rcpp::Rcout << "Creating System from data..." << std::endl;
-    
+
     // Extract data
     Rcpp::DataFrame data = Rcpp::as<Rcpp::DataFrame>(modelParameters["Data"]);
     std::vector<double> times = as<std::vector<double>>(data[2]);
     std::vector<int> patients = as<std::vector<int>>(data[3]);
-    
+
     System *sys = new System(
         as<std::vector<int>>(data[0]),//facility
         as<std::vector<int>>(data[1]),//unit
@@ -434,27 +434,27 @@ Rcpp::List testHistoryLinkLogLikelihoods(Rcpp::List modelParameters) {
         patients,//"patient"
         as<std::vector<int>>(data[4])//"event type"
     );
-    
+
     if (verbose) Rcpp::Rcout << "Building model..." << std::endl;
     lognormal::LogNormalModel *model = newModel(modelParameters, verbose);
-    
+
     // Set time origin of model
     LogNormalICP *icp = (LogNormalICP *) model->getInColParams();
     icp->setTimeOrigin((sys->endTime()-sys->startTime())/2.0);
-    
+
     if (verbose) Rcpp::Rcout << "Building history structure..." << std::endl;
     SystemHistory *hist = new SystemHistory(sys, model, false);
-    
+
     if (verbose) Rcpp::Rcout << "Calling getHistoryLinkLogLikelihoods..." << std::endl;
     std::vector<double> lls = model->getHistoryLinkLogLikelihoods(hist);
-    
+
     if (verbose) Rcpp::Rcout << "Calculating overall log likelihood..." << std::endl;
     double overall_ll = model->logLikelihood(hist);
-    
+
     delete model;
     delete hist;
     delete sys;
-    
+
     return Rcpp::List::create(
         Rcpp::Named("linkLogLikelihoods") = lls,
         Rcpp::Named("overallLogLikelihood") = overall_ll,
@@ -489,20 +489,20 @@ SEXP newCppModelInternal(
 ) {
     if(verbose)
         Rcpp::message(Rcpp::wrap(string("Creating C++ model object...")));
-    
+
     // Create the model using the existing newModel function
     lognormal::LogNormalModel *model = newModel(modelParameters, verbose);
-    
+
     if(verbose)
         Rcpp::message(Rcpp::wrap(string("Model created successfully")));
-    
+
     // Get the model name to determine which class to wrap in
     std::string modname = modelParameters["modname"];
-    
+
     // Wrap the model in the appropriate reference class
     // The wrap.h and wrap.cpp files define how pointers are wrapped
     // We need to return an external pointer wrapped in the correct reference class
-    
+
     if (modname == "LinearAbxModel")
     {
         lognormal::LinearAbxModel *linear_model = dynamic_cast<lognormal::LinearAbxModel*>(model);

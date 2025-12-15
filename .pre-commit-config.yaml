@@ -1,17 +1,17 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v4.5.0
     hooks:
     -   id: trailing-whitespace
-        exclude: (^(inst/|man/|src/cpp11.cpp|playgroud/|R/cpp11.R)|RcppExports)
+        exclude: (^(inst/|man/|src/cpp11.cpp|playgroud/|R/cpp11.R|original_cpp/|copilot/)|RcppExports)
     -   id: end-of-file-fixer
-        exclude: (^(inst/|man/|src/cpp11.cpp|playgroud/|R/cpp11.R)|RcppExports)
+        exclude: (^(inst/|man/|src/cpp11.cpp|playgroud/|R/cpp11.R|original_cpp/|copilot/)|RcppExports)
     -   id: check-yaml
-        exclude: (^(inst/|man/|src/cpp11.cpp|playgroud/|R/cpp11.R)|RcppExports)
+        exclude: (^(inst/|man/|src/cpp11.cpp|playgroud/|R/cpp11.R|original_cpp/|copilot/)|RcppExports)
     -   id: check-added-large-files
-        exclude: (^(inst/|man/|src/cpp11.cpp|playgroud/|R/cpp11.R)|RcppExports)
+        exclude: (^(inst/|man/|src/cpp11.cpp|playgroud/|R/cpp11.R|original_cpp/|copilot/)|RcppExports)
     -   id: detect-private-key
-        exclude: (^(inst/|man/|src/cpp11.cpp|playgroud/|R/cpp11.R)|RcppExports)
+        exclude: (^(inst/|man/|src/cpp11.cpp|playgroud/|R/cpp11.R|original_cpp/|copilot/)|RcppExports)
 
 -   repo: https://github.com/lorenzwalthert/precommit
     # This version of precommit uses R 4.4.1 (renv.lock)
@@ -26,7 +26,7 @@ repos:
             '--strict=FALSE',
             '--cache-root=styler-perm'
           ]
-        exclude: (^(inst/|man/|src/cpp11.cpp|playgroud/|R/cpp11.R)|RcppExports)
+        exclude: (^(inst/|man/|src/cpp11.cpp|playgroud/|R/cpp11.R|original_cpp/|copilot/)|RcppExports)
       - id: readme-rmd-rendered
       # - id: lintr
       #   args: [--warn_only]

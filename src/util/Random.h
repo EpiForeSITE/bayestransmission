@@ -17,7 +17,7 @@ public:
 	// This class has been made virtual for the R Package implementation.
 	Random() {}
 	Random(int seed) {}
-	
+
 	// Virtual destructor is important for abstract base classes
 	virtual ~Random() {}
 

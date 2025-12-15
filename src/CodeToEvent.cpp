@@ -17,11 +17,11 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 CharacterVector CodeToEvent(IntegerVector x) {
   CharacterVector out(x.size());
-  
+
   for(auto i = x.begin(); i != x.end(); ++i) {
     out[i - x.begin()] = infect::EventCoding::eventString(*i);
   }
-  
+
   return(out);
 }
 

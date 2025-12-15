@@ -21,7 +21,7 @@ The test suite includes **8 test cases** with **34 individual assertions** cover
 ### 3. LinearAbxAcquisitionParams Initialization
 - **Purpose:** Verify that antibiotic acquisition parameters are correctly initialized
 - **Critical Feature:** Tests that mass and freq parameters use 0.9999 (not 1.0) to avoid logit infinity
-- **Bug Prevented:** 
+- **Bug Prevented:**
   - Double log-transformation bug (dolog=true + internal transform)
   - Logit boundary value causing NaN (logit(1.0) = infinity)
 

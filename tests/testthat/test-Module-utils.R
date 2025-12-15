@@ -128,10 +128,10 @@ test_that("RRandom rpoisson method", {
   # Verify seed restoration works
   expect_identical(a, c, info = "Restoring seed should give identical result")
   expect_identical(a, as.numeric(d), info = "RRandom should match R's rpois exactly (after conversion to double)")
-  
+
   # Verify seed advances (draw 10 values and check they're not all identical)
   .GlobalEnv$.Random.seed <- seed
   values <- replicate(10, rr$rpoisson(5))
-  expect_true(length(unique(values)) > 1, 
-              info = "Seed should advance: 10 draws should not all be identical")
+  expect_true(length(unique(values)) > 1,
+    info = "Seed should advance: 10 draws should not all be identical")
 })

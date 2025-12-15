@@ -132,4 +132,3 @@ void PatientState::write(ostream &os) const
 }
 
 }// namespace infect
-

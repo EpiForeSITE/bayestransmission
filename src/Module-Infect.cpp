@@ -59,10 +59,10 @@ RCPP_EXPOSED_AS(infect::SetLocationState)
 #endif
 
 //' Get compilation flags for exposed classes
-//' 
+//'
 //' Returns information about which optional classes are exposed in this build.
 //' This allows tests to conditionally skip tests for unexposed classes.
-//' 
+//'
 //' @return List with logical flags:
 //'   * `comprehensive_testing` - TRUE if comprehensive testing classes are exposed
 //'   * `all_classes` - TRUE if all optional classes are exposed
@@ -71,19 +71,19 @@ RCPP_EXPOSED_AS(infect::SetLocationState)
 // [[Rcpp::export]]
 Rcpp::List getExposureFlags() {
     return Rcpp::List::create(
-        Rcpp::Named("comprehensive_testing") = 
+        Rcpp::Named("comprehensive_testing") =
 #ifdef BAYESTRANSMISSION_COMPREHENSIVE_TESTING
             true,
 #else
             false,
 #endif
-        Rcpp::Named("all_classes") = 
+        Rcpp::Named("all_classes") =
 #ifdef BAYESTRANSMISSION_ALL_CLASSES
             true,
 #else
             false,
 #endif
-        Rcpp::Named("minimal") = 
+        Rcpp::Named("minimal") =
 #if !defined(BAYESTRANSMISSION_COMPREHENSIVE_TESTING) && !defined(BAYESTRANSMISSION_ALL_CLASSES)
             true
 #else
@@ -95,7 +95,7 @@ Rcpp::List getExposureFlags() {
 #ifdef BAYESTRANSMISSION_ALL_CLASSES
 /**
  * @brief Wrapper to compute log likelihood for a single HistoryLink
- * 
+ *
  * @param model Pointer to the Model (must be castable to UnitLinkedModel)
  * @param link Pointer to the HistoryLink to compute likelihood for
  * @return double The log likelihood contribution of this link (including gap probability)
@@ -104,13 +104,13 @@ static double Model_logLikelihoodLink_wrapper(infect::Model* model, infect::Hist
     if (model == nullptr || link == nullptr) {
         return 0.0;
     }
-    
+
     // Cast to UnitLinkedModel to access the HistoryLink-specific logLikelihood method
     UnitLinkedModel* ulm = dynamic_cast<UnitLinkedModel*>(model);
     if (ulm == nullptr) {
         Rcpp::stop("Model must be a UnitLinkedModel to compute likelihood for individual links");
     }
-    
+
     return ulm->logLikelihood(link);
 }
 #endif

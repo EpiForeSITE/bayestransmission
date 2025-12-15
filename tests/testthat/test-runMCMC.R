@@ -13,7 +13,7 @@ test_that("runMCMC Works", {
 
   expect_true(rlang::is_list(modelParameters$Insitu))
   expect_named(modelParameters$Insitu, c("probs", "priors", "doit"))
-  if(rlang::is_installed("checkmate")){
+  if (rlang::is_installed("checkmate")) {
     checkmate::expect_double(modelParameters$Insitu$probs, 0, 1, len = 3)
     checkmate::expect_double(modelParameters$Insitu$priors, 0, 1, len = 3)
     checkmate::expect_logical(modelParameters$Insitu$doit, len = 3)
@@ -117,10 +117,10 @@ test_that("runMCMC produces consistent output with fixed parameters", {
       colonized = Param(init = 1.0, weight = 0)
     )
   )
-  
+
   # Set seed for reproducibility
   set.seed(42)
-  
+
   # Run MCMC with minimal iterations for testing
   results <- runMCMC(
     data = simulated.data,
@@ -131,38 +131,38 @@ test_that("runMCMC produces consistent output with fixed parameters", {
     outputfinal = FALSE,
     verbose = FALSE
   )
-  
+
   # Check structure of results
   expect_type(results, "list")
-  expect_named(results, c("Parameters", "LogLikelihood", "MCMCParameters", 
-                         "ModelParameters", "waic1", "waic2"), 
-               ignore.order = TRUE)
-  
+  expect_named(results, c("Parameters", "LogLikelihood", "MCMCParameters",
+    "ModelParameters", "waic1", "waic2"),
+  ignore.order = TRUE)
+
   # Check dimensions
   expect_length(results$Parameters, 10)
   expect_length(results$LogLikelihood, 10)
-  
+
   # Check that log likelihood values are finite and reasonable
   # Note: Some values may be -Inf during burn-in with bad parameter combinations
   expect_true(is.numeric(results$LogLikelihood))
   finite_ll <- results$LogLikelihood[is.finite(results$LogLikelihood)]
-  if(length(finite_ll) > 0) {
+  if (length(finite_ll) > 0) {
     expect_true(all(finite_ll < 0))  # Log likelihood should be negative
     expect_true(all(finite_ll > -100000))  # Should not be extremely negative
   }
-  
+
   # Check parameter structure - each iteration should have model parameters
   expect_true(all(sapply(results$Parameters, is.list)))
-  param_names <- c("Insitu", "SurveillanceTest", "ClinicalTest", 
-                   "OutCol", "InCol", "Abx")
+  param_names <- c("Insitu", "SurveillanceTest", "ClinicalTest",
+    "OutCol", "InCol", "Abx")
   for (i in seq_along(results$Parameters)) {
     expect_true(all(param_names %in% names(results$Parameters[[i]])))
   }
-  
+
   # Check WAIC values are finite
   expect_true(is.finite(results$waic1))
   expect_true(is.finite(results$waic2))
-  
+
   # Check that MCMC parameters are preserved in return value
   expect_equal(results$MCMCParameters$nburn, 5)
   expect_equal(results$MCMCParameters$nsims, 10)
@@ -236,14 +236,14 @@ test_that("runMCMC is reproducible with same seed", {
       colonized = Param(init = 1.0, weight = 0)
     )
   )
-  
+
   mcmc_params <- list(
     nburn = 2,
     nsims = 3,
     outputparam = TRUE,
     outputfinal = FALSE
   )
-  
+
   # Run 1
   set.seed(123)
   results1 <- runMCMC(
@@ -255,7 +255,7 @@ test_that("runMCMC is reproducible with same seed", {
     outputfinal = FALSE,
     verbose = FALSE
   )
-  
+
   # Run 2 with same seed
   set.seed(123)
   results2 <- runMCMC(
@@ -267,7 +267,7 @@ test_that("runMCMC is reproducible with same seed", {
     outputfinal = FALSE,
     verbose = FALSE
   )
-  
+
   # Results should be identical with same seed
   expect_equal(results1$LogLikelihood, results2$LogLikelihood, tolerance = 1e-10)
   expect_equal(results1$waic1, results2$waic1, tolerance = 1e-10)

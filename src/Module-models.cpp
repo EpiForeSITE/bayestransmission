@@ -81,7 +81,7 @@ void init_Module_models(){
         .property("names", &models::OutColParams::paramNames)
         .method("logProb", &models::OutColParams::logProb)
     ;
-    
+
     class_<models::AbxParams>("CppAbxParams")
         .derives<util::Object>("CppObject")
         .property("NStates", &models::AbxParams::getNStates)

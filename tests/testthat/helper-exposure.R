@@ -3,27 +3,29 @@
 
 # Helper function to check if a class is available
 check_class_available <- function(class_name) {
-  tryCatch({
-    exists(class_name) && is(get(class_name), "C++Class")
-  }, error = function(e) FALSE)
+  tryCatch(
+    {
+      exists(class_name) && is(get(class_name), "C++Class")
+    },
+    error = function(e) FALSE)
 }
 
 # Get exposure flags and check what's available
 get_exposure_info <- function() {
   flags <- getExposureFlags()
-  
+
   # Check which classes are actually available
   critical_classes <- c("CppSystem", "CppSystemHistory", "CppModel")
-  testing_classes <- c("CppEvent", "CppFacility", "CppPatient", "CppPatientState", 
-                      "CppRawEventList", "CppSampler", "CppUnit", "CppMap")
+  testing_classes <- c("CppEvent", "CppFacility", "CppPatient", "CppPatientState",
+    "CppRawEventList", "CppSampler", "CppUnit", "CppMap")
   optional_classes <- c("CppAbxLocationState", "CppAbxPatientState", "CppCountLocationState",
-                       "CppEpisode", "CppHistoryLink", "CppLocationState", "CppTestParamsAbx")
-  
+    "CppEpisode", "CppHistoryLink", "CppLocationState", "CppTestParamsAbx")
+
   list(
     flags = flags,
     available = list(
       critical = sapply(critical_classes, check_class_available),
-      testing = sapply(testing_classes, check_class_available), 
+      testing = sapply(testing_classes, check_class_available),
       optional = sapply(optional_classes, check_class_available)
     )
   )
@@ -31,12 +33,14 @@ get_exposure_info <- function() {
 
 # Helper function to check if a method is available on an object
 check_method_available <- function(object, method_name) {
-  tryCatch({
-    # Try to access the method/property
-    env <- as.environment(object)
-    exists(method_name, envir = env, inherits = FALSE) ||
-      method_name %in% names(object$getClass()@refMethods)
-  }, error = function(e) FALSE)
+  tryCatch(
+    {
+      # Try to access the method/property
+      env <- as.environment(object)
+      exists(method_name, envir = env, inherits = FALSE) ||
+        method_name %in% names(object$getClass()@refMethods)
+    },
+    error = function(e) FALSE)
 }
 
 # Conditional test wrapper

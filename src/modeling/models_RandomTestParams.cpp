@@ -207,7 +207,7 @@ void RandomTestParams::write (ostream &os) const
     }
     snprintf(buffer, 100, "%12.10f\t",probs[2][1]);
     os << buffer;
-    
+
     // Write RandomTest rates
     snprintf(buffer, 100, "%12.10f\t",rates[0]);
     os << buffer;

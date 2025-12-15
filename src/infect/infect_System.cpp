@@ -147,16 +147,16 @@ std::shared_ptr<Map> System::getEpisodes(Patient *p)
         errlog << "Warning: getEpisodes called with null Patient pointer\n";
         return std::make_shared<Map>();  // Return empty map instead of crashing
     }
-    
+
     // The Episodes for a Patient are sorted to give a coherent individual history.
     Map *eps = (Map *) pepis->get(p);
-    
+
     // Add null check for episode map
     if (eps == nullptr) {
         errlog << "Warning: No episodes found for patient " << p->hash() << "\n";
         return std::make_shared<Map>();  // Return empty map
     }
-    
+
     eps->init();
     // Need to wrap raw pointer in shared_ptr with custom deleter that does nothing
     // because this memory is owned by pepis (the System member)

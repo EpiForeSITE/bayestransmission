@@ -1,7 +1,7 @@
 test_that("R and C++ produce identical initial log likelihood", {
   skip_on_cran()
   skip_if_not(exists("simulated.data_sorted"), message = "simulated.data_sorted not available")
-  
+
   # Use parameters that match original C++ implementation
   # BUT with P(+|uncolonized) = 1e-10 instead of 0.0 to avoid -Inf
   params <- LinearAbxModel(
@@ -66,7 +66,7 @@ test_that("R and C++ produce identical initial log likelihood", {
       colonized = Param(init = 1.0, weight = 0)
     )
   )
-  
+
   # Run MCMC with no burn-in, 1 iteration to get initial likelihood
   set.seed(42)
   results <- runMCMC(
@@ -78,72 +78,72 @@ test_that("R and C++ produce identical initial log likelihood", {
     modelParameters = params,
     verbose = FALSE
   )
-  
+
   initial_ll <- results$LogLikelihood[1]
-  
+
   # The likelihood MUST be finite
   expect_true(is.finite(initial_ll),
-                info = paste("Initial log likelihood is", initial_ll, "but should be finite"))
-  
+    info = paste("Initial log likelihood is", initial_ll, "but should be finite"))
+
   # Note: Original C++ gave ~-12942.9 with P(+|uncolonized) = 0.0
   # With P(+|uncolonized) = 1e-10, the value will be slightly different
   # but should still be close (within same order of magnitude)
   expect_true(initial_ll < 0,
-              info = "Log likelihood should be negative")
+    info = "Log likelihood should be negative")
   expect_true(initial_ll > -20000,
-              info = "Log likelihood should not be extremely negative")
-  
+    info = "Log likelihood should not be extremely negative")
+
   # Diagnostic (quiet): initial_ll should be finite and within [-20000, 0]
 })
 
 test_that("No surveillance test probability can be exactly zero", {
   # This test ensures we don't regress back to P=0
-  
+
   params <- LinearAbxModel(nstates = 2)
-  
+
   # Check default parameters
   surv_uncol <- params$SurveillanceTest$uncolonized
-  surv_lat <- params$SurveillanceTest$latent  
+  surv_lat <- params$SurveillanceTest$latent
   surv_col <- params$SurveillanceTest$colonized
-  
+
   # Extract init values
   uncol_init <- if (is.list(surv_uncol) && "init" %in% names(surv_uncol)) {
     surv_uncol$init
   } else {
     surv_uncol
   }
-  
+
   lat_init <- if (is.list(surv_lat) && "init" %in% names(surv_lat)) {
     surv_lat$init
   } else {
     surv_lat
   }
-  
+
   col_init <- if (is.list(surv_col) && "init" %in% names(surv_col)) {
     surv_col$init
   } else {
     surv_col
   }
-  
+
   # None should be exactly zero (or if zero for latent in 2-state, that's OK)
   if (params$nstates == 2) {
     # In 2-state model, latent can be 0
     expect_true(uncol_init >= 1e-10 || uncol_init == 0,
-                info = "uncolonized test prob should be >= 1e-10 or exactly 0 if unused")
+      info = "uncolonized test prob should be >= 1e-10 or exactly 0 if unused")
     expect_true(col_init > 0,
-                info = "colonized test prob must be > 0")
+      info = "colonized test prob must be > 0")
   } else {
     expect_true(all(c(uncol_init, lat_init, col_init) >= 1e-10),
-                info = "All test probabilities should be >= 1e-10 to avoid log(0)")
+      info = "All test probabilities should be >= 1e-10 to avoid log(0)")
   }
-  
+
   # Diagnostic (quiet): probabilities checked via expectations above
 })
 
 test_that("Likelihood remains finite throughout MCMC run", {
   skip_on_cran()
   skip_if_not(exists("simulated.data_sorted"), message = "simulated.data_sorted not available")
-  
+
   # Run a short MCMC to verify likelihoods stay finite
   params <- LinearAbxModel(
     nstates = 2,
@@ -153,7 +153,7 @@ test_that("Likelihood remains finite throughout MCMC run", {
       colonized = Param(init = 0.8, weight = 1)
     )
   )
-  
+
   set.seed(123)
   results <- runMCMC(
     data = simulated.data_sorted,
@@ -164,16 +164,16 @@ test_that("Likelihood remains finite throughout MCMC run", {
     modelParameters = params,
     verbose = FALSE
   )
-  
+
   # ALL likelihoods should be finite
   expect_true(all(is.finite(results$LogLikelihood)),
-              info = paste("Found non-finite likelihoods:",
-                          sum(!is.finite(results$LogLikelihood)), "out of",
-                          length(results$LogLikelihood)))
-  
+    info = paste("Found non-finite likelihoods:",
+      sum(!is.finite(results$LogLikelihood)), "out of",
+      length(results$LogLikelihood)))
+
   # All should be negative (log of probability < 1)
   expect_true(all(results$LogLikelihood < 0),
-              info = "All log likelihoods should be negative")
-  
+    info = "All log likelihoods should be negative")
+
   # Diagnostic (quiet): summary suppressed; failures report details via `info`
 })

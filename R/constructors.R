@@ -20,7 +20,7 @@
 #' # Weight = 0 implies update=FALSE and prior is ignored.
 #' Param(0, 0)
 #' # Update parameter that starts at zero.
-#' Param(0, weight =1, update=TRUE)
+#' Param(0, weight = 1, update = TRUE)
 #' # Parameters specified at zero implies fixed.
 #' Param(0)
 Param <- function(init, weight = if_else(init == 0, 0, 1), update = weight > 0, prior = init) {
@@ -86,8 +86,8 @@ ParamWRate <- function(param = Param(), rate = Param()) {
 }
 check_paramwrate <- function(x, name = deparse(substitute(x))) {
   assertthat::assert_that(is.list(x),
-              x %has_name% 'param',
-              x %has_name% 'rate')
+    x %has_name% "param",
+    x %has_name% "rate")
   x$param <- check_param(x$param, paste0(name, "$parameter"))
   x$rate <- check_param(x$rate, paste0(name, "$rate"))
   return(x)
@@ -123,10 +123,10 @@ InsituParams <- function(probs = NULL, priors = NULL, doit = NULL, nstates = NUL
       stop("nstates must be 2 or 3")
     }
   }
-  
+
   stopifnot(2 <= length(probs) && length(probs) <= 3)
   if (length(probs) == 2) probs <- c(probs, 0)
-  
+
   if (is.null(doit)) {
     # For 2-state: update uncolonized and colonized, not latent
     # For 3-state: update all three
@@ -135,11 +135,11 @@ InsituParams <- function(probs = NULL, priors = NULL, doit = NULL, nstates = NUL
     }
     doit <- if (nstates == 2) c(TRUE, FALSE, TRUE) else c(TRUE, TRUE, TRUE)
   }
-  
+
   if (is.null(priors)) {
     priors <- probs * doit + (1 - doit) * 1  # Use 1 for fixed parameters
   }
-  
+
   list(
     probs = probs,
     priors = priors,
@@ -237,9 +237,9 @@ SurveillanceTestParams <- function(
     colonized = Param(init = 0.8, weight = 1),       # High sensitivity for detecting colonized
     uncolonized = Param(init = 1e-10, weight = 0),   # Very low false positive rate
     latent = Param(init = 0.0, weight = 0)) {        # Not used in 2-state model
-    colonized <- check_param(colonized)
-    uncolonized <- check_param(uncolonized)
-    latent <- check_param(latent)
+  colonized <- check_param(colonized)
+  uncolonized <- check_param(uncolonized)
+  latent <- check_param(latent)
   list(
     colonized = colonized,
     uncolonized = uncolonized,
@@ -370,9 +370,9 @@ LogNormalAcquisitionParams <- function(
 #'    N_S(t) - N_E(t) + exp(beta_suss_ever)*((E_i(t)-A_i(t)) + A_i(t)*exp(beta_suss_abx))
 #'  ]
 #' }
-#' where P(Acq(t)) is the acquisition probability at time t, with effects from time (beta_time), 
-#' mass action (beta_mass), frequency dependence (beta_freq), 
-#' colonized individuals on antibiotics (beta_col_abx), 
+#' where P(Acq(t)) is the acquisition probability at time t, with effects from time (beta_time),
+#' mass action (beta_mass), frequency dependence (beta_freq),
+#' colonized individuals on antibiotics (beta_col_abx),
 #' and susceptible individuals currently (beta_suss_abx) or ever (beta_suss_ever) on antibiotics.
 #'
 #' @param base The base rate of acquisition.
@@ -454,7 +454,7 @@ ClearanceParams <- function(
 
 #' In Unit Parameters
 #'
-#' @param acquisition Acquisition, for rate of acquisition of the disease moving into 
+#' @param acquisition Acquisition, for rate of acquisition of the disease moving into
 #'                    colonized(2-State)/latent(3-state) state.
 #' @param progression Progression from latent state to colonized state.
 #' @param clearance Clearance from colonized state to uncolonized state.
@@ -549,7 +549,7 @@ LogNormalModelParams <-
     if (is.null(Insitu)) {
       Insitu <- InsituParams(nstates = nstates)
     }
-    
+
     # Create default InUnit params based on model type if not provided
     if (is.null(InUnit)) {
       if (modname == "LogNormalModel" || modname == "MixedModel") {

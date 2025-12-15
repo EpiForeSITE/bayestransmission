@@ -254,7 +254,7 @@ RCPP_EXPOSED_AS(RRandom)
     RCPP_EXPOSED_AS(infect::RawEventList)
     RCPP_EXPOSED_AS(infect::Sampler)
     RCPP_EXPOSED_AS(infect::Unit)
-    
+
     // State classes
     RCPP_EXPOSED_AS(infect::SetLocationState)
 #endif
@@ -268,5 +268,3 @@ RCPP_EXPOSED_AS(RRandom)
     RCPP_EXPOSED_AS(infect::HistoryLink)
     RCPP_EXPOSED_AS(infect::LocationState)
 #endif
-
-
