@@ -20,31 +20,34 @@ LinearAbxAcquisitionParams(
 
 - base:
 
-  The base rate of acquisition.
+  The base rate of acquisition (\\\beta_0\\).
 
 - time:
 
-  The time effect on acquisition.
+  The time effect on acquisition (\\\beta\_\mathrm{time}\\).
 
 - mass:
 
-  The mass action effect on acquisition.
+  The mass action effect on acquisition (\\\beta\_\mathrm{mass}\\).
 
 - freq:
 
-  The frequency effect on acquisition.
+  The frequency effect on acquisition (\\\beta\_\mathrm{freq}\\).
 
 - col_abx:
 
-  The effect for colonized on antibiotics.
+  The effect for colonized individuals on antibiotics
+  (\\\beta\_{\bullet℞}\\).
 
 - suss_abx:
 
-  The effect on susceptible being currently on antibiotics.
+  The effect on susceptible individuals currently on antibiotics
+  (\\\beta\_{\circ℞}\\).
 
 - suss_ever:
 
-  The effect on susceptible ever being on antibiotics.
+  The effect on susceptible individuals ever being on antibiotics
+  (\\\beta\_{\circ^\*℞}\\).
 
 ## Value
 
@@ -52,21 +55,28 @@ A list of parameters for acquisition.
 
 ## Details
 
+Notation: States are represented by circles - susceptible (\\\circ\\),
+colonized (\\\bullet\\), latent (\\\circ^\*\\). The symbol ℞ represents
+antibiotic effects.
+
 The model for this acquisition model is given by
 
 \$\$ P(\mathrm{Acq(t)}) =
 \left\[e^{\beta\_\mathrm{time}(t-t_0)}\right\]\\ \left\\e^{\beta_0}
 \left\[ \left( \frac{\beta\_\mathrm{freq}}{P(t)}+(1 -
 e^{\beta\_\mathrm{freq}}) \right) e^{\beta\_\mathrm{mass}}\left(
-(N_c(t) - N\_{ca}(t)) + e^{\beta\_\mathrm{col\\abx}}N\_{ca}(t) \right) +
-1 - e^{\beta\_\mathrm{mass}} \right\] \right\\\\ \left\[ N_S(t) -
-N_E(t) + e^{\beta\_\mathrm{suss\\ever}} \left( \left( E_i(t) - A_i(t)
-\right) + A_i(t)e^{\beta\_\mathrm{suss\\abx}} \right) \right\] \$\$
-where P(Acq(t)) is the acquisition probability at time t, with effects
-from time (beta_time), mass action (beta_mass), frequency dependence
-(beta_freq), colonized individuals on antibiotics (beta_col_abx), and
-susceptible individuals currently (beta_suss_abx) or ever
-(beta_suss_ever) on antibiotics.
+(N\_{\bullet}(t) - N\_{\bullet℞}(t)) +
+e^{\beta\_{\bullet℞}}N\_{\bullet℞}(t) \right) + 1 -
+e^{\beta\_\mathrm{mass}} \right\] \right\\\\ \left\[ N\_{\circ}(t) -
+N\_{\circ^\*℞}(t) + e^{\beta\_{\circ^\*℞}} \left( \left(
+N\_{\circ^\*℞}(t) - N\_{\circ℞}(t) \right) +
+N\_{\circ℞}(t)e^{\beta\_{\circ℞}} \right) \right\] \$\$ where P(Acq(t))
+is the acquisition probability at time t, with effects from time
+(\\\beta\_\mathrm{time}\\), mass action (\\\beta\_\mathrm{mass}\\),
+frequency dependence (\\\beta\_\mathrm{freq}\\), colonized individuals
+on antibiotics (\\\beta\_{\bullet℞}\\), and susceptible individuals
+currently (\\\beta\_{\circ℞}\\) or ever (\\\beta\_{\circ^\*℞}\\) on
+antibiotics.
 
 ## Examples
 

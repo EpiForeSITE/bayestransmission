@@ -32,8 +32,9 @@ A data frame with one row per MCMC iteration containing:
 
 - `outunit_*`: Out of unit infection parameters
 
-- `inunit_*`: In unit LinearAbx model parameters (base, time, mass,
-  freq, colabx, susabx, susever, clr, clrAbx, clrEver)
+- `inunit_*`: In unit LinearAbx model parameters (`base`, `time`,
+  `mass`, `freq`, `colabx`, `susabx`, `susever`, `clr`, `clrAbx`,
+  `clrEver`)
 
 - `abxrate_*`: Antibiotic rate parameters
 
@@ -50,11 +51,11 @@ posterior distributions.
 
 ``` r
 results <- runMCMC(data = simulated.data,
-                   modelParameters = LinearAbxModel(),
-                   nsims = 10,
-                   nburn = 0,
-                   outputparam = TRUE,
-                   outputfinal = FALSE)
+  modelParameters = LinearAbxModel(),
+  nsims = 10,
+  nburn = 0,
+  outputparam = TRUE,
+  outputfinal = FALSE)
 param_df <- mcmc_to_dataframe(results)
 head(param_df)
 #>   iteration insitu_uncolonized insitu_colonized surv_test_uncol_neg

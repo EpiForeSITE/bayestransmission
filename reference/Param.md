@@ -25,7 +25,7 @@ Param(
 
 - update:
 
-  a flag indicating if the parameter shouldbe updated in the MCMC.
+  a flag indicating if the parameter should be updated in the MCMC.
 
 - prior:
 
@@ -40,7 +40,7 @@ A list with the following elements:
 
 - `weight` the weight of the prior.
 
-- `update` a flag indicating if the parameter shouldbe updated in the
+- `update` a flag indicating if the parameter should be updated in the
   MCMC.
 
 - `prior` mean value of the prior distribution, may be used with weight
@@ -83,7 +83,7 @@ Param(0, 0)
 #> attr(,"class")
 #> [1] "Param"
 # Update parameter that starts at zero.
-Param(0, weight =1, update=TRUE)
+Param(0, weight = 1, update = TRUE)
 #> $init
 #> [1] 0
 #> 

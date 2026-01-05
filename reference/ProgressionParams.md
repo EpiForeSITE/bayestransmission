@@ -16,15 +16,16 @@ ProgressionParams(
 
 - rate:
 
-  Base progression rate
+  Base progression rate (\\\delta_0\\)
 
 - abx:
 
-  Effect of current antibiotics on progression
+  Effect of current antibiotics on progression (\\\delta\_{℞}\\)
 
 - ever_abx:
 
   Effect of ever having taken antibiotics on progression
+  (\\\delta\_{\circ^\*℞}\\)
 
 ## Value
 

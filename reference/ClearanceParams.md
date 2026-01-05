@@ -12,15 +12,16 @@ ClearanceParams(rate = Param(0.01), abx = Param(1, 0), ever_abx = Param(1, 0))
 
 - rate:
 
-  base rate of clearance
+  Base rate of clearance (\\\gamma_0\\)
 
 - abx:
 
-  effect of antibiotics on clearance
+  Effect of antibiotics on clearance (\\\gamma\_{℞}\\)
 
 - ever_abx:
 
-  effect of ever having taken antibiotics on clearance
+  Effect of ever having taken antibiotics on clearance
+  (\\\gamma\_{\circ^\*℞}\\)
 
 ## Value
 

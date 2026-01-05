@@ -65,7 +65,7 @@ table(CodeToEvent(simulated.data$type))
 #>         297         725        2183        2183        2749         223
 ```
 
-## Model Specifiction
+## Model Specification
 
 ### Model Choice
 
@@ -183,24 +183,26 @@ which does not take into account antibiotic use. All in unit
 transmission is defined in terms of acquisition, progression, and
 clearance.
 
-#### Aqcuisition Model
+#### Acquisition Model
 
 In the base log normal antibiotic model,
-`LogNormalABXInUnitParameters()` log acquisition probability is a linear
-function.
+`LogNormalABXInUnitParameters()` log acquisition probability at time $t$
+is a linear function.
 
-$$\log\left( P\left( {Acq(t)} \right) \right) = \beta_{0} + \beta_{t}\left( t - t_{0} \right) + \beta_{c}N_{c}(t) + \beta_{ca}N_{ca}(t) + \beta_{A}A_{i}(t) + \beta_{E}E_{i}(t)$$
+$$\log\left( P\left( {Acq}(t) \right) \right) = \beta_{0} + \beta_{t}\left( t - t_{0} \right) + \beta_{\bullet}N_{\bullet}(t) + \beta_{\bullet \text{℞}}N_{\bullet \text{℞}}(t) + \beta_{\circ \text{℞}}N_{\circ \text{℞}}(t) + \beta_{\circ^{*}\text{℞}}N_{\circ^{*}\text{℞}}(t)$$
 
 Where $\beta_{\star}$ represents the coefficient corresponding to the
-amounts, $N_{c}(t)$ represent the total number of colonized patients at
-time $t$, $N_{ca}(t)$ the number of colonized on antibiotics, and
-$A_{i}(t)$ and $E_{i}(t)$ represents if patient $i$ is currently or ever
-on antibiotics.
+amounts, $N_{\bullet}(t)$ represents the total number of colonized
+patients ($\bullet$) at time $t$, $N_{\bullet \text{℞}}(t)$ the number
+of colonized on antibiotics ($\beta_{\bullet \text{℞}}$), and
+$N_{\circ \text{℞}}(t)$ and $N_{\circ^{*}\text{℞}}(t)$ indicate
+susceptible ($\circ$) patients currently ($\beta_{\circ \text{℞}}$) or
+ever ($\beta_{\circ^{*}\text{℞}}$) on antibiotics.
 
 The linear antibiotic (`LinearAbxAcquisitionParams`) takes a more
 complicated form for the acquisition model.
 
-$$P\left( {Acq(t)} \right) = \left\lbrack e^{\beta_{time}{(t - t_{0})}} \right\rbrack\left\{ e^{\beta_{0}}\left\lbrack \left( \frac{\beta_{freq}}{P(t)} + \left( 1 - e^{\beta_{freq}} \right) \right)e^{\beta_{mass}}\left( \left( N_{c}(t) - N_{ca}(t) \right) + e^{\beta_{col\_ abx}}N_{ca}(t) \right) + 1 - e^{\beta_{mass}} \right\rbrack \right\}\left\lbrack N_{S}(t) - N_{E}(t) + e^{\beta_{suss\_ ever}}\left( \left( E_{i}(t) - A_{i}(t) \right) + A_{i}(t)e^{\beta_{suss\_ abx}} \right) \right\rbrack$$
+$$P\left( {Acq(t)} \right) = \left\lbrack e^{\beta_{time}{(t - t_{0})}} \right\rbrack\left\{ e^{\beta_{0}}\left\lbrack \left( \frac{\beta_{freq}}{P(t)} + \left( 1 - e^{\beta_{freq}} \right) \right)e^{\beta_{mass}}\left( \left( N_{\bullet}(t) - N_{\bullet \text{℞}}(t) \right) + e^{\beta_{\bullet \text{℞}}}N_{\bullet \text{℞}}(t) \right) + 1 - e^{\beta_{mass}} \right\rbrack \right\}\left\lbrack N_{\circ}(t) - N_{\circ^{*}\text{℞}}(t) + e^{\beta_{\circ^{*}\text{℞}}}\left( \left( N_{\circ^{*}\text{℞}}(t) - N_{\circ \text{℞}}(t) \right) + N_{\circ \text{℞}}(t)e^{\beta_{\circ \text{℞}}} \right) \right\rbrack$$
 
 ``` r
 acquisition <- LinearAbxAcquisitionParams(
@@ -216,15 +218,15 @@ acquisition <- LinearAbxAcquisitionParams(
 
 #### Progression Model
 
-In the 3 state model there is a latent state and the progression model
-controls how patient transition out of the latent state. The base rate
-can be affected by currently being on antiboitics or ever being on
-antbiotcs.
+In the 3 state model there is a latent state ($\circ^{*}$) and the
+progression model controls how patient transition out of the latent
+state. The base rate can be affected by currently being on antibiotics
+or ever being on antibiotics.
 
-$$\log\left( P\left( {progression} \right) \right) = \delta_{0} + \delta_{A}A_{i}(t) + \delta_{E}E_{i}(t)$$
+$$\log\left( P\left( {progression} \right) \right) = \delta_{0} + \delta_{\text{℞}}N_{\circ \text{℞}}(t) + \delta_{\circ^{*}\text{℞}}N_{\circ^{*}\text{℞}}(t)$$
 the linear antibiotic model is:
 
-$$P\left( {progression} \right) = e^{\delta_{0}}\left\lbrack 1 - E_{i}(t) + e^{\delta_{2}}\left( E_{i}(t) - A_{i}(t) + e^{\delta_{1}}A_{i}(t) \right) \right\rbrack$$
+$$P\left( {progression} \right) = e^{\delta_{0}}\left\lbrack 1 - N_{\circ^{*}\text{℞}}(t) + e^{\delta_{\circ^{*}\text{℞}}}\left( N_{\circ^{*}\text{℞}}(t) - N_{\circ \text{℞}}(t) + e^{\delta_{\text{℞}}}N_{\circ \text{℞}}(t) \right) \right\rbrack$$
 
 Where here we use $\delta$ for the coefficients, but the notation is the
 same.
@@ -399,7 +401,7 @@ system.time(
   )
 )
 #>    user  system elapsed 
-#>  17.529  16.369  16.961
+#>  18.274  16.726  17.512
 ```
 
 ## Analyzing MCMC Results

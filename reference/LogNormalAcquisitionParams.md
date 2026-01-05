@@ -24,11 +24,11 @@ LogNormalAcquisitionParams(
 
 - time:
 
-  Time parameter (index 0)
+  Time parameter (index 0) (\\\beta_t\\)
 
 - constant:
 
-  Constant parameter (index 1)
+  Constant parameter (index 1) (\\\beta_0\\)
 
 - log_tot_inpat:
 
@@ -36,7 +36,7 @@ LogNormalAcquisitionParams(
 
 - log_col:
 
-  Log number colonized parameter (index 3)
+  Log number colonized parameter (index 3) (\\\beta_c\\)
 
 - col:
 
@@ -44,15 +44,18 @@ LogNormalAcquisitionParams(
 
 - abx_col:
 
-  Number abx colonized parameter (index 5)
+  Number of colonized individuals on antibiotics parameter (index 5)
+  (\\\beta\_{\bullet℞}\\)
 
 - onabx:
 
-  Susceptible patient on Abx effect (index 6)
+  Susceptible patient currently on antibiotics effect (index 6)
+  (\\\beta\_{\circ℞}\\)
 
 - everabx:
 
-  Susceptible patient ever on Abx effect (index 7)
+  Susceptible patient ever on antibiotics effect (index 7)
+  (\\\beta\_{\circ^\*℞}\\)
 
 ## Value
 

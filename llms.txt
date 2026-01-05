@@ -44,9 +44,9 @@ devtools::install_github("EpiForeSITE/bayestransmission")
 This package requires a C++ compiler and the following system
 dependencies:
 
-- R (\>= 3.5.0)
-- Rcpp (\>= 1.0.0)
-- RcppArmadillo
+- [`R`](https://cran.r-project.org/) (\>= 3.5.0)
+- [`Rcpp`](https://cran.r-project.org/package=Rcpp) (\>= 1.0.0)
+- [`RcppArmadillo`](https://cran.r-project.org/package=RcppArmadillo)
 
 ## Quick Start
 
