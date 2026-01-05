@@ -16,7 +16,7 @@ Param(
 
 \item{weight}{the weight of the prior.}
 
-\item{update}{a flag indicating if the parameter shouldbe updated in the MCMC.}
+\item{update}{a flag indicating if the parameter should be updated in the MCMC.}
 
 \item{prior}{mean value of the prior distribution, may be used with weight to fully determine prior parameters.}
 }
@@ -25,7 +25,7 @@ A list with the following elements:
 \itemize{
 \item \code{init} the initial value of the parameter.
 \item \code{weight} the weight of the prior.
-\item \code{update} a flag indicating if the parameter shouldbe updated in the MCMC.
+\item \code{update} a flag indicating if the parameter should be updated in the MCMC.
 \item \code{prior} mean value of the prior distribution, may be used with weight to fully determine prior parameters.
 }
 }
@@ -39,7 +39,7 @@ Param(init = 0, weight = 1, update = TRUE, prior = 0.5)
 # Weight = 0 implies update=FALSE and prior is ignored.
 Param(0, 0)
 # Update parameter that starts at zero.
-Param(0, weight =1, update=TRUE)
+Param(0, weight = 1, update = TRUE)
 # Parameters specified at zero implies fixed.
 Param(0)
 }

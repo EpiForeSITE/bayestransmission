@@ -2,13 +2,13 @@
 #'
 #' @param init the initial value of the parameter.
 #' @param weight the weight of the prior.
-#' @param update a flag indicating if the parameter shouldbe updated in the MCMC.
+#' @param update a flag indicating if the parameter should be updated in the MCMC.
 #' @param prior mean value of the prior distribution, may be used with weight to fully determine prior parameters.
 #'
 #' @returns A list with the following elements:
 #'  * `init` the initial value of the parameter.
 #'  * `weight` the weight of the prior.
-#'  * `update` a flag indicating if the parameter shouldbe updated in the MCMC.
+#'  * `update` a flag indicating if the parameter should be updated in the MCMC.
 #'  * `prior` mean value of the prior distribution, may be used with weight to fully determine prior parameters.
 #'
 #' @export
@@ -302,14 +302,14 @@ AbxRateParams <- function(
 #' Note: When accessed via setupLogNormalICPAcquisition, parameters are set by index,
 #' so this returns an unnamed list where position matters.
 #'
-#' @param time Time parameter (index 0)
-#' @param constant Constant parameter (index 1)
+#' @param time Time parameter (index 0) (\eqn{\beta_t})
+#' @param constant Constant parameter (index 1) (\eqn{\beta_0})
 #' @param log_tot_inpat Log total in-patients parameter (index 2)
-#' @param log_col Log number colonized parameter (index 3)
+#' @param log_col Log number colonized parameter (index 3) (\eqn{\beta_c})
 #' @param col Number colonized parameter (index 4)
-#' @param abx_col Number abx colonized parameter (index 5)
-#' @param onabx Susceptible patient on Abx effect (index 6)
-#' @param everabx Susceptible patient ever on Abx effect (index 7)
+#' @param abx_col Number of colonized individuals on antibiotics parameter (index 5) (\eqn{\beta_{\bullet℞}})
+#' @param onabx Susceptible patient currently on antibiotics effect (index 6) (\eqn{\beta_{\circ℞}})
+#' @param everabx Susceptible patient ever on antibiotics effect (index 7) (\eqn{\beta_{\circ^*℞}})
 #'
 #' @returns An unnamed list of 8 parameters in the correct order for LogNormalAbxICP.
 #' @export
@@ -333,6 +333,10 @@ LogNormalAcquisitionParams <- function(
 #'
 #' Acquisition parameters for LinearAbxModel and LinearAbxModel2.
 #'
+#' Notation: States are represented by circles - susceptible (\eqn{\circ}), 
+#' colonized (\eqn{\bullet}), latent (\eqn{\circ^*}). The symbol ℞ represents 
+#' antibiotic effects.
+#'
 #' The model for this acquisition model is given by
 #'
 #' \deqn{
@@ -344,19 +348,19 @@ LogNormalAcquisitionParams <- function(
 #'           \frac{\beta_\mathrm{freq}}{P(t)}+(1 - e^{\beta_\mathrm{freq}})
 #'         \right)
 #'         e^{\beta_\mathrm{mass}}\left(
-#'             (N_c(t) - N_{ca}(t)) + e^{\beta_\mathrm{col\_abx}}N_{ca}(t)
+#'             (N_{\bullet}(t) - N_{\bullet℞}(t)) + e^{\beta_{\bullet℞}}N_{\bullet℞}(t)
 #'             \right)
 #'         + 1 - e^{\beta_\mathrm{mass}}
 #'         \right]
 #'     \right\}\\
 #'  \left[
-#'      N_S(t) - N_E(t) +
-#'      e^{\beta_\mathrm{suss\_ever}}
+#'      N_{\circ}(t) - N_{\circ^*℞}(t) +
+#'      e^{\beta_{\circ^*℞}}
 #'      \left(
 #'        \left(
-#'          E_i(t) - A_i(t)
+#'          N_{\circ^*℞}(t) - N_{\circ℞}(t)
 #'        \right)
-#'        + A_i(t)e^{\beta_\mathrm{suss\_abx}}
+#'        + N_{\circ℞}(t)e^{\beta_{\circ℞}}
 #'      \right)
 #'  \right]
 #' }{
@@ -370,18 +374,18 @@ LogNormalAcquisitionParams <- function(
 #'    N_S(t) - N_E(t) + exp(beta_suss_ever)*((E_i(t)-A_i(t)) + A_i(t)*exp(beta_suss_abx))
 #'  ]
 #' }
-#' where P(Acq(t)) is the acquisition probability at time t, with effects from time (beta_time),
-#' mass action (beta_mass), frequency dependence (beta_freq),
-#' colonized individuals on antibiotics (beta_col_abx),
-#' and susceptible individuals currently (beta_suss_abx) or ever (beta_suss_ever) on antibiotics.
+#' where P(Acq(t)) is the acquisition probability at time t, with effects from time (\eqn{\beta_\mathrm{time}}),
+#' mass action (\eqn{\beta_\mathrm{mass}}), frequency dependence (\eqn{\beta_\mathrm{freq}}),
+#' colonized individuals on antibiotics (\eqn{\beta_{\bullet℞}}),
+#' and susceptible individuals currently (\eqn{\beta_{\circ℞}}) or ever (\eqn{\beta_{\circ^*℞}}) on antibiotics.
 #'
-#' @param base The base rate of acquisition.
-#' @param time The time effect on acquisition.
-#' @param mass The mass action effect on acquisition.
-#' @param freq The frequency effect on acquisition.
-#' @param col_abx The effect for colonized on antibiotics.
-#' @param suss_abx The effect on susceptible being currently on antibiotics.
-#' @param suss_ever The effect on susceptible ever being on antibiotics.
+#' @param base The base rate of acquisition (\eqn{\beta_0}).
+#' @param time The time effect on acquisition (\eqn{\beta_\mathrm{time}}).
+#' @param mass The mass action effect on acquisition (\eqn{\beta_\mathrm{mass}}).
+#' @param freq The frequency effect on acquisition (\eqn{\beta_\mathrm{freq}}).
+#' @param col_abx The effect for colonized individuals on antibiotics (\eqn{\beta_{\bullet℞}}).
+#' @param suss_abx The effect on susceptible individuals currently on antibiotics (\eqn{\beta_{\circ℞}}).
+#' @param suss_ever The effect on susceptible individuals ever being on antibiotics (\eqn{\beta_{\circ^*℞}}).
 #'
 #' @returns A list of parameters for acquisition.
 #' @export
@@ -409,9 +413,9 @@ LinearAbxAcquisitionParams <- function(
 
 #' Progression Parameters
 #'
-#' @param rate Base progression rate
-#' @param abx  Effect of current antibiotics on progression
-#' @param ever_abx Effect of ever having taken antibiotics on progression
+#' @param rate Base progression rate (\eqn{\delta_0})
+#' @param abx Effect of current antibiotics on progression (\eqn{\delta_{℞}})
+#' @param ever_abx Effect of ever having taken antibiotics on progression (\eqn{\delta_{\circ^*℞}})
 #'
 #' @returns A list of parameters for progression.
 #' @export
@@ -431,9 +435,9 @@ ProgressionParams <- function(
 
 #' Clearance Parameters
 #'
-#' @param rate base rate of clearance
-#' @param abx effect of antibiotics on clearance
-#' @param ever_abx effect of ever having taken antibiotics on clearance
+#' @param rate Base rate of clearance (\eqn{\gamma_0})
+#' @param abx Effect of antibiotics on clearance (\eqn{\gamma_{℞}})
+#' @param ever_abx Effect of ever having taken antibiotics on clearance (\eqn{\gamma_{\circ^*℞}})
 #'
 #' @returns A list of parameters for clearance.
 #' @export

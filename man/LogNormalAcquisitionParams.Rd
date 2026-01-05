@@ -16,21 +16,21 @@ LogNormalAcquisitionParams(
 )
 }
 \arguments{
-\item{time}{Time parameter (index 0)}
+\item{time}{Time parameter (index 0) (\eqn{\beta_t})}
 
-\item{constant}{Constant parameter (index 1)}
+\item{constant}{Constant parameter (index 1) (\eqn{\beta_0})}
 
 \item{log_tot_inpat}{Log total in-patients parameter (index 2)}
 
-\item{log_col}{Log number colonized parameter (index 3)}
+\item{log_col}{Log number colonized parameter (index 3) (\eqn{\beta_c})}
 
 \item{col}{Number colonized parameter (index 4)}
 
-\item{abx_col}{Number abx colonized parameter (index 5)}
+\item{abx_col}{Number of colonized individuals on antibiotics parameter (index 5) (\eqn{\beta_{\bullet℞}})}
 
-\item{onabx}{Susceptible patient on Abx effect (index 6)}
+\item{onabx}{Susceptible patient currently on antibiotics effect (index 6) (\eqn{\beta_{\circ℞}})}
 
-\item{everabx}{Susceptible patient ever on Abx effect (index 7)}
+\item{everabx}{Susceptible patient ever on antibiotics effect (index 7) (\eqn{\beta_{\circ^*℞}})}
 }
 \value{
 An unnamed list of 8 parameters in the correct order for LogNormalAbxICP.

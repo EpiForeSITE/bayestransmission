@@ -1,7 +1,7 @@
 {
   "name": "R Debug Environment",
   "image": "wch1/r-debug:latest",
-  
+
   // Set environment variables
   "containerEnv": {
     "LANG": "en_US.UTF-8",

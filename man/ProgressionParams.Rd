@@ -11,11 +11,11 @@ ProgressionParams(
 )
 }
 \arguments{
-\item{rate}{Base progression rate}
+\item{rate}{Base progression rate (\eqn{\delta_0})}
 
-\item{abx}{Effect of current antibiotics on progression}
+\item{abx}{Effect of current antibiotics on progression (\eqn{\delta_{℞}})}
 
-\item{ever_abx}{Effect of ever having taken antibiotics on progression}
+\item{ever_abx}{Effect of ever having taken antibiotics on progression (\eqn{\delta_{\circ^*℞}})}
 }
 \value{
 A list of parameters for progression.

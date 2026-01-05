@@ -15,19 +15,19 @@ LinearAbxAcquisitionParams(
 )
 }
 \arguments{
-\item{base}{The base rate of acquisition.}
+\item{base}{The base rate of acquisition (\eqn{\beta_0}).}
 
-\item{time}{The time effect on acquisition.}
+\item{time}{The time effect on acquisition (\eqn{\beta_\mathrm{time}}).}
 
-\item{mass}{The mass action effect on acquisition.}
+\item{mass}{The mass action effect on acquisition (\eqn{\beta_\mathrm{mass}}).}
 
-\item{freq}{The frequency effect on acquisition.}
+\item{freq}{The frequency effect on acquisition (\eqn{\beta_\mathrm{freq}}).}
 
-\item{col_abx}{The effect for colonized on antibiotics.}
+\item{col_abx}{The effect for colonized individuals on antibiotics (\eqn{\beta_{\bullet℞}}).}
 
-\item{suss_abx}{The effect on susceptible being currently on antibiotics.}
+\item{suss_abx}{The effect on susceptible individuals currently on antibiotics (\eqn{\beta_{\circ℞}}).}
 
-\item{suss_ever}{The effect on susceptible ever being on antibiotics.}
+\item{suss_ever}{The effect on susceptible individuals ever being on antibiotics (\eqn{\beta_{\circ^*℞}}).}
 }
 \value{
 A list of parameters for acquisition.
@@ -36,6 +36,10 @@ A list of parameters for acquisition.
 Acquisition parameters for LinearAbxModel and LinearAbxModel2.
 }
 \details{
+Notation: States are represented by circles - susceptible (\eqn{\circ}),
+colonized (\eqn{\bullet}), latent (\eqn{\circ^*}). The symbol ℞ represents
+antibiotic effects.
+
 The model for this acquisition model is given by
 
 \deqn{
@@ -47,19 +51,19 @@ P(\mathrm{Acq(t)}) =
           \frac{\beta_\mathrm{freq}}{P(t)}+(1 - e^{\beta_\mathrm{freq}})
         \right)
         e^{\beta_\mathrm{mass}}\left(
-            (N_c(t) - N_{ca}(t)) + e^{\beta_\mathrm{col\_abx}}N_{ca}(t)
+            (N_{\bullet}(t) - N_{\bullet℞}(t)) + e^{\beta_{\bullet℞}}N_{\bullet℞}(t)
             \right)
         + 1 - e^{\beta_\mathrm{mass}}
         \right]
     \right\}\\
  \left[
-     N_S(t) - N_E(t) +
-     e^{\beta_\mathrm{suss\_ever}}
+     N_{\circ}(t) - N_{\circ^*℞}(t) +
+     e^{\beta_{\circ^*℞}}
      \left(
        \left(
-         E_i(t) - A_i(t)
+         N_{\circ^*℞}(t) - N_{\circ℞}(t)
        \right)
-       + A_i(t)e^{\beta_\mathrm{suss\_abx}}
+       + N_{\circ℞}(t)e^{\beta_{\circ℞}}
      \right)
  \right]
 }{
@@ -73,10 +77,10 @@ P(\mathrm{Acq(t)}) =
    N_S(t) - N_E(t) + exp(beta_suss_ever)*((E_i(t)-A_i(t)) + A_i(t)*exp(beta_suss_abx))
  ]
 }
-where P(Acq(t)) is the acquisition probability at time t, with effects from time (beta_time),
-mass action (beta_mass), frequency dependence (beta_freq),
-colonized individuals on antibiotics (beta_col_abx),
-and susceptible individuals currently (beta_suss_abx) or ever (beta_suss_ever) on antibiotics.
+where P(Acq(t)) is the acquisition probability at time t, with effects from time (\eqn{\beta_\mathrm{time}}),
+mass action (\eqn{\beta_\mathrm{mass}}), frequency dependence (\eqn{\beta_\mathrm{freq}}),
+colonized individuals on antibiotics (\eqn{\beta_{\bullet℞}}),
+and susceptible individuals currently (\eqn{\beta_{\circ℞}}) or ever (\eqn{\beta_{\circ^*℞}}) on antibiotics.
 }
 \examples{
 LinearAbxAcquisitionParams()

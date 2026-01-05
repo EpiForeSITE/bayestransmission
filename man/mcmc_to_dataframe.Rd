@@ -8,7 +8,8 @@ mcmc_to_dataframe(mcmc_results)
 }
 \arguments{
 \item{mcmc_results}{The results object returned by \code{runMCMC()}.
-Must contain a \code{Parameters} component and a \code{LogLikelihood} component.}
+Must contain a \code{Parameters} component and a \code{LogLikelihood}
+component.}
 }
 \value{
 A data frame with one row per MCMC iteration containing:
@@ -18,7 +19,10 @@ A data frame with one row per MCMC iteration containing:
 \item \code{surv_test_*}: Surveillance test parameters
 \item \code{clin_test_*}: Clinical test parameters and rates
 \item \code{outunit_*}: Out of unit infection parameters
-\item \code{inunit_*}: In unit LinearAbx model parameters (base, time, mass, freq, colabx, susabx, susever, clr, clrAbx, clrEver)
+\item \code{inunit_*}: In unit LinearAbx model parameters
+(\code{base}, \code{time}, \code{mass}, \code{freq}, \code{colabx},
+\code{susabx}, \code{susever}, \code{clr}, \code{clrAbx},
+\code{clrEver})
 \item \code{abxrate_*}: Antibiotic rate parameters
 \item \code{loglikelihood}: Log likelihood at each iteration
 }
@@ -34,11 +38,11 @@ This is particularly useful for creating trace plots and posterior distributions
 }
 \examples{
 results <- runMCMC(data = simulated.data,
-                   modelParameters = LinearAbxModel(),
-                   nsims = 10,
-                   nburn = 0,
-                   outputparam = TRUE,
-                   outputfinal = FALSE)
+  modelParameters = LinearAbxModel(),
+  nsims = 10,
+  nburn = 0,
+  outputparam = TRUE,
+  outputfinal = FALSE)
 param_df <- mcmc_to_dataframe(results)
 head(param_df)
 }

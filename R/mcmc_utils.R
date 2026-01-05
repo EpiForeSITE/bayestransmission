@@ -4,7 +4,8 @@
 #' output into a tidy data frame format suitable for analysis and visualization.
 #'
 #' @param mcmc_results The results object returned by \code{runMCMC()}.
-#'   Must contain a \code{Parameters} component and a \code{LogLikelihood} component.
+#'   Must contain a \code{Parameters} component and a \code{LogLikelihood} 
+#'   component.
 #'
 #' @return A data frame with one row per MCMC iteration containing:
 #' \itemize{
@@ -13,7 +14,10 @@
 #'   \item \code{surv_test_*}: Surveillance test parameters
 #'   \item \code{clin_test_*}: Clinical test parameters and rates
 #'   \item \code{outunit_*}: Out of unit infection parameters
-#'   \item \code{inunit_*}: In unit LinearAbx model parameters (base, time, mass, freq, colabx, susabx, susever, clr, clrAbx, clrEver)
+#'   \item \code{inunit_*}: In unit LinearAbx model parameters
+#'      (\code{base}, \code{time}, \code{mass}, \code{freq}, \code{colabx},
+#'       \code{susabx}, \code{susever}, \code{clr}, \code{clrAbx}, 
+#'       \code{clrEver})
 #'   \item \code{abxrate_*}: Antibiotic rate parameters
 #'   \item \code{loglikelihood}: Log likelihood at each iteration
 #' }

@@ -7,11 +7,11 @@
 ClearanceParams(rate = Param(0.01), abx = Param(1, 0), ever_abx = Param(1, 0))
 }
 \arguments{
-\item{rate}{base rate of clearance}
+\item{rate}{Base rate of clearance (\eqn{\gamma_0})}
 
-\item{abx}{effect of antibiotics on clearance}
+\item{abx}{Effect of antibiotics on clearance (\eqn{\gamma_{℞}})}
 
-\item{ever_abx}{effect of ever having taken antibiotics on clearance}
+\item{ever_abx}{Effect of ever having taken antibiotics on clearance (\eqn{\gamma_{\circ^*℞}})}
 }
 \value{
 A list of parameters for clearance.

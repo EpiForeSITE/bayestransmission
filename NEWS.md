@@ -28,13 +28,13 @@
 ## Bug Fixes
 
 * Fixed potential segfaults in SystemHistory container access methods
-* Improved memory management with shared_ptr caching for Map/IntMap objects
+* Improved memory management with `shared_ptr` caching for Map/IntMap objects
 
 ## Internal Changes
 
 * Reorganized C++ class exposure into logical tiers
 * Added stub functions for conditionally compiled exports with informative errors
-* Reduced Rcpp template instantiation by ~65%
+* Reduced `Rcpp` template instantiation by ~65%
 * Cleaned up package structure (moved original_cpp out of inst/)
 
 # bayestransmission 0.0.0.9000
