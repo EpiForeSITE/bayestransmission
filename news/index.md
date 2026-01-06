@@ -1,6 +1,6 @@
 # Changelog
 
-## bayestransmission (development version)
+## bayestransmission 0.1.1
 
 ### Bug Fixes
 

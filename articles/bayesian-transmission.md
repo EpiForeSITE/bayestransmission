@@ -401,7 +401,7 @@ system.time(
   )
 )
 #>    user  system elapsed 
-#>  18.408  16.968  17.709
+#>  17.761  16.326  17.056
 ```
 
 ## Analyzing MCMC Results

@@ -22,13 +22,13 @@ Source:
 [`DESCRIPTION`](https://github.com/EpiForeSITE/bayestransmission/blob/main/DESCRIPTION)
 
 Redd A, Thomas A (2026). *bayestransmission: Bayesian Transmission
-Models*. R package version 0.1.0.9000,
+Models*. R package version 0.1.1,
 <https://epiforesite.github.io/bayestransmission/>.
 
     @Manual{,
       title = {bayestransmission: Bayesian Transmission Models},
       author = {Andrew Redd and Alun Thomas},
       year = {2026},
-      note = {R package version 0.1.0.9000},
+      note = {R package version 0.1.1},
       url = {https://epiforesite.github.io/bayestransmission/},
     }
