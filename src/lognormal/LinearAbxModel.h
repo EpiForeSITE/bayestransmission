@@ -11,7 +11,7 @@ public:
 LinearAbxModel(int nst, int nmetro, int fw, int ch);
 inline LinearAbxICP *getInColParams() const
 {
-    return (LinearAbxICP *)icp;
+    return static_cast<LinearAbxICP *>(icp);
 }
 
 

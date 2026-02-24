@@ -10,10 +10,8 @@ public:
 
 	MixedModel(int nst, int nmetro, int fw = 0, int ch = 0) : LogNormalModel(nst,nmetro,fw,ch)
 	{
-		InColParams *icp = getInColParams();
-		if (icp != 0) delete icp;
+		delete icp;
 		icp = new MixedICP(nst, 0,nmetro);
-		setInColParams(icp);
 	}
 };
 #endif // ALUN_LOGNORMAL_MIXEDMODEL_H

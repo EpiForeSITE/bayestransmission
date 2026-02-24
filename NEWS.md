@@ -2,7 +2,7 @@
 
 ## Bug Fixes
 
-* Fixed undefined behavior in LinearAbxModel and LinearAbxModel2 constructors that caused incorrect parent constructor parameter mapping (UBSAN downcast errors)
+* Fixed undefined behavior from invalid C++ downcasts detected by gcc-UBSAN that caused CRAN removal. `LogNormalModel::getInColParams()` now returns `LogNormalICP*` instead of `LogNormalAbxICP*` to avoid invalid cross-casts between sibling classes. Subclass constructors (`LinearAbxModel`, `LinearAbxModel2`, `MixedModel`) now directly access the `icp` member instead of calling `getInColParams()` during construction when the member still holds the parent-allocated type.
 
 # bayestransmission 0.1.0
 

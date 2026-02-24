@@ -61,9 +61,9 @@ LogNormalModel::~LogNormalModel()
     delete dumpers;
 }
 
-LogNormalAbxICP* LogNormalModel::getInColParams() const
+LogNormalICP* LogNormalModel::getInColParams() const
 {
-    return (LogNormalAbxICP *)icp;
+    return static_cast<LogNormalICP *>(icp);
 }
 
 int LogNormalModel::needEventType(EventCode e)
