@@ -25,7 +25,7 @@ public:
         return (RandomTestParams *)clintsp;
     }
 
-    LogNormalAbxICP * getInColParams() const;
+    LogNormalICP * getInColParams() const;
     virtual int needEventType(EventCode e) override;
     virtual PatientState *makePatientState(Patient *p) override;
     virtual LocationState *makeUnitState(Unit *u) override;
